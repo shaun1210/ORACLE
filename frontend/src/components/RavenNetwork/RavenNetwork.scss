@@ -1,0 +1,276 @@
+.raven-network-container {
+  max-width: 1000px;
+  margin: 0 auto;
+  display: flex;
+  gap: 2rem;
+  align-items: flex-start;
+}
+
+.rookery-tower {
+  flex: 1;
+  background: #1a1e24; /* Dark stone tower */
+  border: 8px solid #2a221d;
+  border-radius: 4px;
+  padding: 2rem;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.8), inset 0 0 30px rgba(0,0,0,0.9);
+  
+  /* Stone texture */
+  background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100' height='100' filter='url(%23noise)' opacity='0.05'/%3E%3C/svg%3E");
+  
+  .tower-header {
+    text-align: center;
+    margin-bottom: 2rem;
+    border-bottom: 2px solid rgba(255,255,255,0.05);
+    padding-bottom: 1.5rem;
+    
+    .master-raven-icon {
+      color: #8da390;
+      margin-bottom: 1rem;
+      filter: drop-shadow(0 4px 6px rgba(0,0,0,0.8));
+    }
+    
+    h3 {
+      font-family: 'Cinzel', serif;
+      font-size: 2rem;
+      color: #d1bda2;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      margin-bottom: 0.5rem;
+    }
+    
+    p {
+      color: #6c7d70;
+      font-style: italic;
+    }
+  }
+}
+
+.dispatch-station {
+  background: rgba(0,0,0,0.3);
+  padding: 1.5rem;
+  border-radius: 4px;
+  border: 1px solid rgba(255,255,255,0.05);
+  
+  h4 {
+    font-family: 'Cinzel', serif;
+    font-size: 1.2rem;
+    color: #e6d3b3;
+    margin-bottom: 1.5rem;
+  }
+  
+  .dispatch-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      
+      label {
+        font-family: 'Cinzel', serif;
+        font-weight: 700;
+        color: #8da390;
+        font-size: 0.9rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+      
+      textarea, input {
+        background: #e6d3b3; /* Parchment input */
+        border: 2px solid #bfae91;
+        padding: 0.75rem;
+        font-family: 'Playfair Display', serif;
+        font-size: 1.1rem;
+        color: #2c1e16;
+        border-radius: 2px;
+        outline: none;
+        
+        &:focus {
+          border-color: #8b0000;
+          background: #fdf5e6;
+        }
+      }
+    }
+    
+    .send-btn {
+      margin-top: 1rem;
+      background: #8b0000;
+      color: #fdf5e6;
+      border: 2px solid #5c0000;
+      padding: 1rem;
+      font-family: 'Cinzel', serif;
+      font-weight: 700;
+      font-size: 1.1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      border-radius: 4px;
+      transition: all 0.2s;
+      box-shadow: inset 0 0 10px rgba(0,0,0,0.3), 0 4px 6px rgba(0,0,0,0.5);
+      
+      &:hover {
+        background: #5c0000;
+        transform: translateY(-2px);
+      }
+    }
+  }
+}
+
+.cages-area {
+  flex: 1;
+  background: #2a221d; /* Wood paneling */
+  border: 4px solid #1a1614;
+  border-radius: 4px;
+  padding: 2rem;
+  min-height: 500px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+  
+  h4 {
+    font-family: 'Cinzel', serif;
+    font-size: 1.5rem;
+    color: #d1bda2;
+    margin-bottom: 2rem;
+    text-transform: uppercase;
+    border-bottom: 2px solid rgba(255,255,255,0.05);
+    padding-bottom: 1rem;
+  }
+  
+  .ravens-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    
+    .empty-cages {
+      font-style: italic;
+      color: #8da390;
+      text-align: center;
+      padding: 2rem;
+      background: rgba(0,0,0,0.2);
+      border-radius: 4px;
+    }
+    
+    .raven-item {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      background: rgba(0,0,0,0.3);
+      padding: 1rem;
+      border-radius: 4px;
+      border: 1px solid rgba(255,255,255,0.05);
+      border-left: 4px solid #8da390;
+      transition: all 0.2s;
+      
+      &:hover {
+        background: rgba(0,0,0,0.5);
+        
+        .delete-btn {
+          opacity: 1;
+        }
+      }
+      
+      &.flown {
+        border-left-color: #3b4b3e;
+        opacity: 0.5;
+        
+        .r-message {
+          text-decoration: line-through;
+        }
+      }
+      
+      .r-icon {
+        color: #6c7d70;
+      }
+      
+      .r-details {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        gap: 0.25rem;
+        
+        .r-message {
+          font-family: 'Playfair Display', serif;
+          font-size: 1.1rem;
+          color: #e6d3b3;
+          font-style: italic;
+        }
+        
+        .r-time {
+          font-family: 'Cinzel', serif;
+          font-size: 0.8rem;
+          color: #8da390;
+        }
+      }
+      
+      .delete-btn {
+        background: transparent;
+        border: none;
+        color: #8b0000;
+        opacity: 0;
+        transition: all 0.2s;
+        
+        &:hover {
+          transform: scale(1.2);
+        }
+      }
+    }
+  }
+}
+
+/* GLOBAL RAVEN TOAST ANIMATION */
+.global-raven-toast {
+  position: fixed;
+  top: 100px;
+  right: -300px;
+  background: #1a1e24;
+  border: 2px solid #8da390;
+  border-left: 4px solid #8b0000;
+  padding: 1rem 1.5rem;
+  border-radius: 4px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  z-index: 9999;
+  animation: flyInAndOut 8s forwards;
+  
+  .toast-icon {
+    color: #e6d3b3;
+    animation: flap 0.5s infinite alternate;
+  }
+  
+  .toast-content {
+    display: flex;
+    flex-direction: column;
+    
+    strong {
+      font-family: 'Cinzel', serif;
+      color: #8da390;
+      font-size: 0.9rem;
+    }
+    
+    span {
+      font-family: 'Playfair Display', serif;
+      color: #fdf5e6;
+      font-size: 1.1rem;
+      font-style: italic;
+    }
+  }
+}
+
+@keyframes flyInAndOut {
+  0% { right: -300px; opacity: 0; transform: translateY(0); }
+  10% { right: 20px; opacity: 1; transform: translateY(-10px); }
+  15% { right: 20px; opacity: 1; transform: translateY(0); }
+  85% { right: 20px; opacity: 1; transform: translateY(0); }
+  90% { right: 20px; opacity: 1; transform: translateY(10px); }
+  100% { right: -300px; opacity: 0; transform: translateY(0); }
+}
+
+@keyframes flap {
+  0% { transform: translateY(0) scaleY(1); }
+  100% { transform: translateY(-2px) scaleY(0.9); }
+}

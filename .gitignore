@@ -1,0 +1,30 @@
+# Dependencies
+frontend/node_modules/
+backend/venv/
+backend/.venv/
+
+# Environment Variables (Sensitive data)
+backend/.env
+frontend/.env
+.env
+
+# Runtime data / Databases
+backend/data.json
+
+# Builds & Outputs
+frontend/dist/
+build/
+dist/
+
+# Python cache files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.pytest_cache/
+
+# Editor / OS settings
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

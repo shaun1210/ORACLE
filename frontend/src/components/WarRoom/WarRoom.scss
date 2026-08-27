@@ -1,0 +1,382 @@
+.war-room-container {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.map-table {
+  width: 100%;
+  background: #2a221d; /* Dark heavy wood table */
+  border: 12px solid #1a1614;
+  border-radius: 8px;
+  box-shadow: 0 30px 60px rgba(0,0,0,0.9), inset 0 0 40px rgba(0,0,0,0.8);
+  padding: 2rem;
+  
+  /* Wood texture */
+  background-image: 
+    linear-gradient(to right, rgba(0,0,0,0.4) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(0,0,0,0.4) 1px, transparent 1px),
+    url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.2' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100' height='100' filter='url(%23noise)' opacity='0.08'/%3E%3C/svg%3E");
+  background-size: 50px 50px, 50px 50px, auto;
+  
+  .map-header {
+    text-align: center;
+    margin-bottom: 2rem;
+    background: rgba(0,0,0,0.4);
+    padding: 1rem;
+    border-radius: 4px;
+    border: 1px solid rgba(255,255,255,0.05);
+    
+    h3 {
+      font-family: 'Cinzel', serif;
+      font-size: 2.2rem;
+      color: #d1bda2;
+      text-transform: uppercase;
+      letter-spacing: 4px;
+      margin-bottom: 0.5rem;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+    }
+    
+    p {
+      color: #8da390;
+      font-style: italic;
+    }
+  }
+}
+
+.map-grid {
+  display: flex;
+  gap: 2rem;
+  min-height: 500px;
+}
+
+.campaign-markers {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  
+  .empty-map {
+    color: #8da390;
+    font-style: italic;
+    text-align: center;
+    padding: 2rem;
+    background: rgba(0,0,0,0.2);
+    border-radius: 4px;
+  }
+  
+  .campaign-marker {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    background: #3a2e26; /* Wooden block */
+    padding: 1rem;
+    border: 2px solid #1a1614;
+    border-radius: 4px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.5), inset 0 2px 5px rgba(255,255,255,0.05);
+    cursor: pointer;
+    transition: all 0.2s;
+    
+    &:hover {
+      background: #4a3e35;
+      transform: translateY(-2px);
+    }
+    
+    &.active {
+      background: #5a4b41;
+      border-color: #d4af37;
+      box-shadow: 0 0 15px rgba(212, 175, 55, 0.3);
+      
+      .marker-sigil {
+        color: #d4af37;
+      }
+    }
+    
+    .marker-sigil {
+      color: #8da390;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .marker-details {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      
+      .marker-title {
+        font-family: 'Cinzel', serif;
+        font-size: 1.1rem;
+        color: #e6d3b3;
+        font-weight: 700;
+      }
+      
+    .progress-bar-container {
+        width: 100%;
+        height: 6px;
+        background: #1a1614;
+        border-radius: 3px;
+        overflow: hidden;
+        border: 1px solid rgba(255,255,255,0.05);
+        
+        .progress-bar-fill {
+          height: 100%;
+          background: #8b0000;
+          transition: width 0.3s ease;
+        }
+      }
+    }
+    
+    .quick-delete-btn {
+      background: transparent;
+      border: none;
+      color: rgba(255, 255, 255, 0.2);
+      padding: 0.25rem;
+      transition: all 0.2s;
+      
+      &:hover {
+        color: #8b0000;
+        transform: scale(1.1);
+      }
+    }
+  }
+}
+
+.campaign-details-panel {
+  flex: 1;
+  background: 
+    linear-gradient(to bottom, rgba(20, 0, 0, 0.7), rgba(0, 0, 0, 0.85)),
+    url("/assets/lava_bg.jpg") center/cover no-repeat;
+  border: 4px solid #5c0000;
+  border-radius: 4px;
+  padding: 2rem;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.8), inset 0 0 20px rgba(255, 60, 0, 0.2);
+  clip-path: polygon(1% 0, 100% 1%, 99% 100%, 0 99%);
+  
+  h4 {
+    font-family: 'Cinzel', serif;
+    font-size: 1.5rem;
+    color: #ffaa77;
+    margin-bottom: 1.5rem;
+    text-transform: uppercase;
+    border-bottom: 2px solid rgba(255, 60, 0, 0.3);
+    padding-bottom: 0.5rem;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+  }
+}
+
+.active-campaign-view {
+  .ac-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    
+    .delete-btn {
+      background: transparent;
+      border: none;
+      color: #5c4335;
+      transition: color 0.2s;
+      
+      &:hover {
+        color: #8b0000;
+      }
+    }
+  }
+  
+  .ac-progress {
+    margin-bottom: 2rem;
+    
+    .progress-text {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: #ff6633;
+      text-shadow: 0 1px 2px rgba(0,0,0,0.8);
+    }
+  }
+  
+  .subtasks-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    
+    .no-subtasks {
+      font-style: italic;
+      color: #a37560;
+    }
+    
+    .subtask-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem;
+      color: #e6d3b3;
+      transition: all 0.2s;
+      padding: 0.5rem;
+      border-radius: 4px;
+      background: rgba(0,0,0,0.4);
+      border: 1px solid rgba(255, 60, 0, 0.1);
+      
+      &:hover {
+        background: rgba(255, 60, 0, 0.15);
+        border-color: rgba(255, 60, 0, 0.3);
+        
+        .delete-milestone-btn {
+          opacity: 1;
+        }
+      }
+      
+      .subtask-content {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        flex: 1;
+        cursor: pointer;
+      }
+      
+      .delete-milestone-btn {
+        background: transparent;
+        border: none;
+        color: #ff4444;
+        opacity: 0;
+        transition: opacity 0.2s, transform 0.2s;
+        cursor: pointer;
+        padding: 4px;
+        
+        &:hover {
+          transform: scale(1.1);
+          color: #ff0000;
+        }
+      }
+      
+      .circle-icon { color: #885544; }
+      .check-icon { color: #ffaa77; }
+      
+      &.completed {
+        .subtask-content {
+          color: #a37560;
+          text-decoration: line-through;
+          opacity: 0.6;
+        }
+      }
+    }
+    
+    .add-milestone-form {
+      display: flex;
+      gap: 0.5rem;
+      margin-top: 0.5rem;
+      
+      input {
+        flex: 1;
+        background: rgba(0, 0, 0, 0.6);
+        border: 2px solid #5c0000;
+        padding: 0.5rem 0.75rem;
+        font-family: 'Playfair Display', serif;
+        font-size: 1rem;
+        color: #e6d3b3;
+        border-radius: 4px;
+        outline: none;
+        
+        &::placeholder {
+          color: #885544;
+        }
+        
+        &:focus {
+          border-color: #ff4400;
+          box-shadow: 0 0 8px rgba(255, 60, 0, 0.4);
+        }
+      }
+      
+      button {
+        background: #5c0000;
+        color: #fdf5e6;
+        border: 2px solid #8b0000;
+        border-radius: 4px;
+        padding: 0 1rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.2s;
+        
+        &:hover:not(:disabled) {
+          background: #8b0000;
+          border-color: #ff4400;
+        }
+        
+        &:disabled {
+          opacity: 0.5;
+          cursor: not-allowed;
+        }
+      }
+    }
+  }
+}
+
+.create-campaign-view {
+  .create-campaign-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      
+      label {
+        font-family: 'Cinzel', serif;
+        font-weight: 700;
+        color: #ffaa77;
+        font-size: 0.9rem;
+        text-shadow: 0 1px 2px rgba(0,0,0,0.8);
+      }
+      
+      input, textarea {
+        background: rgba(0, 0, 0, 0.6);
+        border: 2px solid #5c0000;
+        padding: 0.75rem;
+        font-family: 'Playfair Display', serif;
+        font-size: 1.1rem;
+        color: #e6d3b3;
+        border-radius: 4px;
+        outline: none;
+        
+        &::placeholder {
+          color: #885544;
+        }
+        
+        &:focus {
+          border-color: #ff4400;
+          box-shadow: 0 0 8px rgba(255, 60, 0, 0.4);
+        }
+      }
+    }
+    
+    .declare-btn {
+      background: #8b0000;
+      color: #fdf5e6;
+      border: 2px solid #5c0000;
+      padding: 1rem;
+      font-family: 'Cinzel', serif;
+      font-weight: 700;
+      font-size: 1.1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      border-radius: 4px;
+      transition: all 0.2s;
+      box-shadow: inset 0 0 10px rgba(0,0,0,0.3), 0 4px 6px rgba(0,0,0,0.3);
+      
+      &:hover {
+        background: #5c0000;
+        transform: translateY(-2px);
+      }
+    }
+  }
+}

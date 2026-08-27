@@ -1,0 +1,194 @@
+/* --- COLUMN 3: AI ADVISOR --- */
+.advisor-column {
+  width: 350px;
+  background: 
+    linear-gradient(to bottom, rgba(27, 36, 30, 0.85), rgba(20, 26, 22, 0.95)),
+    url("/assets/knight_bg.png") center/cover no-repeat;
+  border-left: 8px solid #2a221d; /* Inner iron divider */
+  display: flex;
+  flex-direction: column;
+  padding: 1.5rem;
+  position: relative;
+  z-index: 2;
+  box-shadow: -2px 0 10px rgba(0,0,0,0.5);
+  
+  .advisor-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    border-bottom: 2px solid rgba(255,255,255,0.1);
+    padding-bottom: 1.5rem;
+    margin-bottom: 1.5rem;
+    
+    .raven-icon {
+      font-size: 2rem;
+      filter: grayscale(1) contrast(1.5);
+    }
+    
+    h2 {
+      font-family: 'Cinzel', serif;
+      font-size: 1.5rem;
+      color: #d1bda2;
+      margin: 0;
+      text-align: center;
+    }
+  }
+  
+  .chat-messages {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    overflow-y: auto;
+    padding-right: 0.5rem;
+    
+    /* Scrollbar styling */
+    &::-webkit-scrollbar { width: 4px; }
+    &::-webkit-scrollbar-track { background: transparent; }
+    &::-webkit-scrollbar-thumb { 
+      background: rgba(255,255,255,0.1); 
+      border-radius: 2px; 
+    }
+    
+    .chat-bubble {
+      display: flex;
+      gap: 0.75rem;
+      align-items: flex-start;
+      animation: fadeIn 0.3s ease;
+      
+      &.assistant {
+        .bubble-content {
+          background: rgba(0, 0, 0, 0.7);
+          border: 1px solid rgba(255, 255, 255, 0.15);
+          border-radius: 2px 8px 8px 8px;
+          backdrop-filter: blur(4px);
+          
+          p {
+            color: #d1bda2;
+          }
+        }
+      }
+      
+      &.user {
+        flex-direction: row-reverse;
+        
+        .bubble-content {
+          background: rgba(123, 22, 22, 0.7);
+          border: 1px solid rgba(150, 40, 40, 0.6);
+          border-radius: 8px 2px 8px 8px;
+          backdrop-filter: blur(4px);
+          
+          p {
+            color: #f4e8d1;
+          }
+        }
+      }
+      
+      .bubble-sigil {
+        font-size: 1.2rem;
+        min-width: 28px;
+        height: 28px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        background: rgba(0,0,0,0.3);
+        border: 1px solid rgba(255,255,255,0.08);
+      }
+      
+      .bubble-content {
+        padding: 0.75rem 1rem;
+        max-width: 85%;
+        
+        p {
+          font-family: 'Playfair Display', serif;
+          font-size: 0.95rem;
+          line-height: 1.6;
+          margin: 0;
+        }
+      }
+    }
+    
+    .typing-indicator {
+      display: flex;
+      gap: 4px;
+      padding: 4px 0;
+      
+      span {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: #8da390;
+        animation: bounce 1.4s infinite;
+        
+        &:nth-child(2) { animation-delay: 0.2s; }
+        &:nth-child(3) { animation-delay: 0.4s; }
+      }
+    }
+  }
+  
+  .chat-input-form {
+    margin-top: 1rem;
+    display: flex;
+    gap: 0.5rem;
+    
+    .chat-input {
+      flex: 1;
+      background: rgba(0, 0, 0, 0.3);
+      border: 2px solid rgba(255, 255, 255, 0.08);
+      color: #f4e8d1;
+      padding: 0.75rem 1rem;
+      font-family: 'Playfair Display', serif;
+      font-size: 0.95rem;
+      border-radius: 4px;
+      outline: none;
+      transition: border-color 0.2s;
+      
+      &::placeholder {
+        color: #5c6e5f;
+        font-style: italic;
+      }
+      
+      &:focus {
+        border-color: #8b0000;
+      }
+      
+      &:disabled {
+        opacity: 0.5;
+      }
+    }
+    
+    .chat-send-btn {
+      background: #8b0000;
+      border: 2px solid #5c0000;
+      color: #fdf5e6;
+      padding: 0.75rem;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s;
+      
+      &:hover:not(:disabled) {
+        background: #5c0000;
+        transform: translateY(-1px);
+      }
+      
+      &:disabled {
+        opacity: 0.3;
+        cursor: not-allowed;
+      }
+    }
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes bounce {
+  0%, 80%, 100% { transform: translateY(0); }
+  40% { transform: translateY(-6px); }
+}

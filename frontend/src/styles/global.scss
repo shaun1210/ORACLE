@@ -1,0 +1,125 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap');
+
+:root {
+  --bg-color: #1a1614; /* Deep dark wood/iron backdrop */
+  --panel-bg: #cbb89d; /* Darker, aged parchment */
+  --text-primary: #2a1f18; /* Dark brown ink */
+  --text-secondary: #5a4b41;
+  --accent-color: #7b1616; /* Deep blood red / regal burgundy */
+  --accent-hover: #540e0e;
+  --danger: #8a1313;
+  --success: #17422b;
+  --warning: #a15c12;
+  --border-color: #3b312b; /* Dark iron/wood border */
+  --glass-shadow: inset 0 0 60px rgba(71, 52, 34, 0.4), 0 15px 35px rgba(0, 0, 0, 0.95);
+  --border-radius: 4px;
+  --iron-highlight: rgba(255, 255, 255, 0.1);
+  --iron-shadow: rgba(0, 0, 0, 0.8);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Playfair Display', serif;
+  background-color: #0c1012;
+  /* Simulating the blurry medieval library background with a CSS gradient */
+  background-image: 
+    radial-gradient(circle at 80% 60%, rgba(200, 150, 50, 0.15) 0%, transparent 40%),
+    radial-gradient(circle at 20% 40%, rgba(30, 40, 50, 0.4) 0%, transparent 60%),
+    linear-gradient(to bottom, #0a0c0f, #15181c);
+  color: var(--text-primary);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Cinzel', serif;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  color: var(--accent-color);
+}
+
+a {
+  color: var(--accent-color);
+  text-decoration: none;
+  transition: color 0.3s ease;
+  
+  &:hover {
+    color: var(--accent-hover);
+  }
+}
+
+button {
+  cursor: pointer;
+  font-family: 'Cinzel', serif;
+  border: none;
+  outline: none;
+  transition: all 0.3s ease;
+  font-weight: 600;
+}
+
+/* Redefined Panel - Heavy Iron Frame */
+.glass-panel {
+  background: var(--panel-bg);
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  /* Thick iron border */
+  border: 12px solid #2a221d;
+  border-radius: var(--border-radius);
+  box-shadow: 
+    inset 0 0 10px rgba(0,0,0,0.8), /* shadow inside parchment */
+    0 20px 50px rgba(0,0,0,0.9), /* heavy drop shadow */
+    0 0 0 2px #4a3e35, /* thin lighter border around iron */
+    inset 0 0 0 2px #4a3e35; /* thin lighter border inside iron */
+  padding: 1.5rem;
+  position: relative;
+  
+  /* Additional noise on the parchment to age it */
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100' height='100' filter='url(%23noise)' opacity='0.08'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+  }
+  
+  /* Inner brass filigree illusion */
+  &::after {
+    content: '';
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    right: 8px;
+    bottom: 8px;
+    border: 2px solid rgba(42, 31, 24, 0.4);
+    pointer-events: none;
+    z-index: 1;
+  }
+  
+  > * {
+    position: relative;
+    z-index: 2;
+  }
+}
+
+/* Custom Scrollbar for parchment aesthetic */
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: #1a0b12;
+  border-left: 1px solid var(--border-color);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--accent-color);
+  border: 1px solid var(--border-color);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent-hover);
+}
