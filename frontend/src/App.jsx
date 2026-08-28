@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link, useLocation } from 'react-router-dom';
 import Calendar from './components/Calendar/Calendar';
 import TodoList from './components/TodoList/TodoList';
@@ -8,17 +8,24 @@ import Treasury from './components/Treasury/Treasury';
 import WarRoom from './components/WarRoom/WarRoom';
 import RavenNetwork from './components/RavenNetwork/RavenNetwork';
 import MaesterChatbot from './components/MaesterChatbot/MaesterChatbot';
-import { CalendarDays, CheckSquare, Target, Sword, BookOpen, Coins, Map, Bird, Send } from 'lucide-react';
+import { CalendarDays, CheckSquare, Target, BookOpen, Coins, Map, Bird } from 'lucide-react';
 import api from './api';
 import './App.scss';
 
 function AppContent() {
   const [ravens, setRavens] = useState([]);
   const [activeToast, setActiveToast] = useState(null);
+  const [isChatOpen, setIsChatOpen] = useState(true);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const location = useLocation();
 
+  // Close sidebar on nav link click (mobile feel)
+  const handleNavClick = () => {
+    if (window.innerWidth < 1100) setIsSidebarOpen(false);
+  };
+
   // Fetch ravens for global notifications
-  React.useEffect(() => {
+  useEffect(() => {
     const fetchRavens = async () => {
       try {
         const response = await api.get('/ravens');
@@ -27,20 +34,19 @@ function AppContent() {
         console.error('Error fetching ravens:', error);
       }
     };
-    
     fetchRavens();
     const interval = setInterval(fetchRavens, 60000);
     return () => clearInterval(interval);
   }, []);
 
   // Check for dispatch times
-  React.useEffect(() => {
+  useEffect(() => {
     const checkRavens = () => {
       const now = new Date();
       ravens.forEach(raven => {
         const dispatchTime = new Date(raven.dispatch_time);
         if (
-          dispatchTime.getHours() === now.getHours() && 
+          dispatchTime.getHours() === now.getHours() &&
           dispatchTime.getMinutes() === now.getMinutes() &&
           dispatchTime.getDate() === now.getDate()
         ) {
@@ -56,8 +62,8 @@ function AppContent() {
   }, [ravens, activeToast]);
 
   return (
-    <div className="app-frame glass-panel">
-      
+    <div className={`app-frame ${isSidebarOpen ? 'sidebar-open' : 'sidebar-closed'}`}>
+
       {/* Global Raven Toast */}
       {activeToast && (
         <div className="global-raven-toast">
@@ -69,34 +75,40 @@ function AppContent() {
         </div>
       )}
 
+      {/* SIDEBAR OVERLAY (mobile) */}
+      {isSidebarOpen && (
+        <div className="sidebar-overlay" onClick={() => setIsSidebarOpen(false)} />
+      )}
+
       {/* COLUMN 1: SIDEBAR */}
-      <aside className="sidebar-column">
+      <aside className={`sidebar-column ${isSidebarOpen ? 'open' : 'closed'}`}>
         <div className="logo-section">
           <img src="/assets/targaryen_logo.png" alt="Targaryen Logo" className="house-logo" />
+          <h1 className="logo-title">ORACLE</h1>
         </div>
         <nav className="nav-menu">
-          <Link to="/" className={`nav-link ${location.pathname === '/' ? 'active' : ''}`}>
+          <Link to="/" className={`nav-link ${location.pathname === '/' ? 'active' : ''}`} onClick={handleNavClick}>
             <CalendarDays size={20} />
             <div className="nav-text">
               <span className="nav-main">The Calendar</span>
               <span className="nav-sub">Schedule</span>
             </div>
           </Link>
-          <Link to="/todos" className={`nav-link ${location.pathname === '/todos' ? 'active' : ''}`}>
+          <Link to="/todos" className={`nav-link ${location.pathname === '/todos' ? 'active' : ''}`} onClick={handleNavClick}>
             <CheckSquare size={20} />
             <div className="nav-text">
               <span className="nav-main">Current Campaigns</span>
               <span className="nav-sub">Tasks</span>
             </div>
           </Link>
-          <Link to="/habits" className={`nav-link ${location.pathname === '/habits' ? 'active' : ''}`}>
+          <Link to="/habits" className={`nav-link ${location.pathname === '/habits' ? 'active' : ''}`} onClick={handleNavClick}>
             <Target size={20} />
             <div className="nav-text">
               <span className="nav-main">Alliances</span>
               <span className="nav-sub">Habits</span>
             </div>
           </Link>
-          <Link to="/archive" className={`nav-link ${location.pathname === '/archive' ? 'active' : ''}`}>
+          <Link to="/archive" className={`nav-link ${location.pathname === '/archive' ? 'active' : ''}`} onClick={handleNavClick}>
             <BookOpen size={20} />
             <div className="nav-text">
               <span className="nav-main">The Archive</span>
@@ -104,21 +116,21 @@ function AppContent() {
             </div>
           </Link>
           <div className="nav-divider"></div>
-          <Link to="/treasury" className={`nav-link ${location.pathname === '/treasury' ? 'active' : ''}`}>
+          <Link to="/treasury" className={`nav-link ${location.pathname === '/treasury' ? 'active' : ''}`} onClick={handleNavClick}>
             <Coins size={20} />
             <div className="nav-text">
               <span className="nav-main">Royal Treasury</span>
               <span className="nav-sub">Finances</span>
             </div>
           </Link>
-          <Link to="/war-room" className={`nav-link ${location.pathname === '/war-room' ? 'active' : ''}`}>
+          <Link to="/war-room" className={`nav-link ${location.pathname === '/war-room' ? 'active' : ''}`} onClick={handleNavClick}>
             <Map size={20} />
             <div className="nav-text">
               <span className="nav-main">The War Room</span>
               <span className="nav-sub">Projects</span>
             </div>
           </Link>
-          <Link to="/ravens" className={`nav-link ${location.pathname === '/ravens' ? 'active' : ''}`}>
+          <Link to="/ravens" className={`nav-link ${location.pathname === '/ravens' ? 'active' : ''}`} onClick={handleNavClick}>
             <Bird size={20} />
             <div className="nav-text">
               <span className="nav-main">Raven Network</span>
@@ -138,7 +150,29 @@ function AppContent() {
           <img src="/assets/banners.png" alt="House Banners" />
         </div>
         <header className="main-header">
-          <h2 className="parchment-header">The Reigning Chronicle</h2>
+          <div className="hamburger-btn-wrapper">
+            <button
+              className={`hamburger-btn ${isSidebarOpen ? 'is-open' : ''}`}
+              onClick={() => setIsSidebarOpen(prev => !prev)}
+              title="Toggle Navigation"
+              aria-label="Toggle Navigation"
+            >
+              <span className="ham-line line-1"></span>
+              <span className="ham-line line-2"></span>
+              <span className="ham-line line-3"></span>
+            </button>
+          </div>
+          <div className="header-center">
+            <div className="header-ornament">
+              <div className="ornament-line"></div>
+              <div className="ornament-diamond"></div>
+              <h2 className="parchment-header">ORACLE</h2>
+              <div className="ornament-diamond"></div>
+              <div className="ornament-line right"></div>
+            </div>
+            <p className="header-subtitle">The Royal Chronicle of the Realm</p>
+          </div>
+          <div className="header-spacer"></div>
         </header>
         <div className="content-area">
           <Routes>
@@ -151,10 +185,15 @@ function AppContent() {
             <Route path="/ravens" element={<RavenNetwork />} />
           </Routes>
         </div>
+        {!isChatOpen && (
+          <button className="maester-toggle-btn" onClick={() => setIsChatOpen(true)} title="Consult the Maester">
+            <div className="maester-avatar-indicator"></div>
+          </button>
+        )}
       </main>
 
       {/* COLUMN 3: AI CHATBOT */}
-      <MaesterChatbot />
+      <MaesterChatbot isOpen={isChatOpen} setIsOpen={setIsChatOpen} />
     </div>
   );
 }
@@ -162,9 +201,7 @@ function AppContent() {
 function App() {
   return (
     <Router>
-      <div className="body-background">
-        <AppContent />
-      </div>
+      <AppContent />
     </Router>
   );
 }

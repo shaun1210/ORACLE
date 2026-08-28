@@ -60,8 +60,13 @@ const TodoList = () => {
 
   return (
     <div className="todo-container">
-      <h3>Tasks for Today</h3>
-      
+      <h2 className="section-title">Tasks for Today</h2>
+      <div className="section-divider">
+        <div className="div-line"></div>
+        <div className="div-ornament"></div>
+        <div className="div-line right"></div>
+      </div>
+
       <form className="add-todo-form" onSubmit={addTodo}>
         <input 
           type="text" 

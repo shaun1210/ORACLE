@@ -3,7 +3,7 @@ import { Send } from 'lucide-react';
 import api from '../../api';
 import './MaesterChatbot.scss';
 
-const MaesterChatbot = () => {
+const MaesterChatbot = ({ isOpen, setIsOpen }) => {
   const [chatMessages, setChatMessages] = useState([
     { role: 'assistant', content: "Your Grace, I am the Royal Maester. I have studied the scrolls of your realm and stand ready to counsel you on matters of scheduling, campaigns, habits, and treasury. How may I serve the Crown?" }
   ]);
@@ -41,10 +41,11 @@ const MaesterChatbot = () => {
   };
 
   return (
-    <aside className="advisor-column">
+    <aside className={`advisor-column ${isOpen ? 'open' : 'closed'}`}>
       <div className="advisor-header">
         <div className="raven-icon">🦅</div>
         <h2>The Maester's Advice</h2>
+        <button type="button" className="close-panel-btn" onClick={() => setIsOpen(false)} title="Close Panel">×</button>
       </div>
       
       <div className="chat-messages">

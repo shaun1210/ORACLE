@@ -64,8 +64,14 @@ const HabitTracker = () => {
 
   return (
     <div className="habit-container">
-      <h3>Your Habits</h3>
-      
+      <h2 className="section-title">Alliances & Fealties</h2>
+      <div className="section-divider">
+        <div className="div-line"></div>
+        <div className="div-ornament"></div>
+        <div className="div-line right"></div>
+      </div>
+
+
       <form className="add-habit-form" onSubmit={addHabit}>
         <input 
           type="text" 

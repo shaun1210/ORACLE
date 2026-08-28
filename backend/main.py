@@ -6,7 +6,7 @@ from routers import schedule, todos, habits, treasury, campaigns, ravens, ai
 
 load_dotenv()
 
-app = FastAPI(title="AI Day Planner API", description="Backend for the Medieval Monarchy Planner")
+app = FastAPI(title="ORACLE API", description="Backend for ORACLE: The Medieval Monarchy Planner")
 
 app.add_middleware(
     CORSMiddleware,
@@ -18,7 +18,7 @@ app.add_middleware(
 
 @app.get("/")
 def read_root():
-    return {"message": "AI Day Planner API"}
+    return {"message": "ORACLE API"}
 
 # Include routers
 app.include_router(schedule.router)

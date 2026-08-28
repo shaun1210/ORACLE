@@ -11,15 +11,45 @@
   position: relative;
   z-index: 2;
   box-shadow: -2px 0 10px rgba(0,0,0,0.5);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  
+  &.closed {
+    width: 0;
+    padding: 0;
+    margin: 0;
+    border: none;
+    overflow: hidden;
+    box-shadow: none;
+    opacity: 0;
+    pointer-events: none;
+  }
+  
+  @media (max-width: 1200px) {
+    position: absolute;
+    top: 16px;
+    bottom: 16px;
+    right: 16px;
+    height: calc(100% - 32px);
+    border: 3px solid var(--border-color);
+    border-radius: var(--border-radius);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.8);
+    background-clip: padding-box;
+    
+    &.open {
+      width: 350px;
+      opacity: 1;
+      pointer-events: all;
+    }
+  }
   
   .advisor-header {
     display: flex;
-    flex-direction: column;
+    justify-content: space-between;
     align-items: center;
-    gap: 0.5rem;
     border-bottom: 2px solid rgba(255,255,255,0.1);
     padding-bottom: 1.5rem;
     margin-bottom: 1.5rem;
+    position: relative;
     
     .raven-icon {
       font-size: 2rem;
@@ -28,10 +58,26 @@
     
     h2 {
       font-family: 'Cinzel', serif;
-      font-size: 1.5rem;
+      font-size: 1.3rem;
       color: #d1bda2;
       margin: 0;
       text-align: center;
+      flex: 1;
+    }
+
+    .close-panel-btn {
+      background: transparent;
+      border: none;
+      color: #8b7d73;
+      font-size: 1.8rem;
+      cursor: pointer;
+      line-height: 1;
+      padding: 0 0.5rem;
+      transition: color 0.2s;
+      
+      &:hover {
+        color: var(--accent-color);
+      }
     }
   }
   
@@ -102,7 +148,7 @@
         max-width: 85%;
         
         p {
-          font-family: 'Playfair Display', serif;
+          font-family: 'Cinzel', serif;
           font-size: 0.95rem;
           line-height: 1.6;
           margin: 0;
@@ -139,7 +185,7 @@
       border: 2px solid rgba(255, 255, 255, 0.08);
       color: #f4e8d1;
       padding: 0.75rem 1rem;
-      font-family: 'Playfair Display', serif;
+      font-family: 'Cinzel', serif;
       font-size: 0.95rem;
       border-radius: 4px;
       outline: none;
@@ -191,4 +237,50 @@
 @keyframes bounce {
   0%, 80%, 100% { transform: translateY(0); }
   40% { transform: translateY(-6px); }
+}
+
+.maester-toggle-btn {
+  position: absolute;
+  bottom: 1.5rem; /* Positioned relative to the main content area */
+  right: 1.5rem; 
+  z-index: 999; 
+  width: 105px; /* Larger size as requested */
+  height: 105px;
+  border-radius: 50%;
+  background: url("/assets/maester_portrait.jpg") center 15%/130% no-repeat;
+  border: 4px solid #d4af37; /* Thick gold frame border */
+  box-shadow: 
+    0 10px 25px rgba(0, 0, 0, 0.7),
+    0 0 0 2px #2a221d,
+    inset 0 0 20px rgba(0, 0, 0, 0.4);
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  animation: fadeIn 0.5s ease;
+  
+  &:hover {
+    transform: translateY(-4px) scale(1.08);
+    box-shadow: 
+      0 15px 30px rgba(0, 0, 0, 0.8),
+      0 0 15px rgba(212, 175, 55, 0.6), /* Gold glow */
+      0 0 0 2px #2a221d;
+  }
+  
+  .maester-avatar-indicator {
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    width: 14px;
+    height: 14px;
+    background: #15803d; /* Green raven alert dot */
+    border: 2px solid #2a221d;
+    border-radius: 50%;
+    box-shadow: 0 0 8px #22c55e;
+    animation: pulse 2s infinite;
+  }
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7); }
+  70% { transform: scale(1.1); box-shadow: 0 0 0 6px rgba(34, 197, 94, 0); }
+  100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(34, 197, 94, 0); }
 }
