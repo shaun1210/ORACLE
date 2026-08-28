@@ -83,59 +83,34 @@ function AppContent() {
       {/* COLUMN 1: SIDEBAR */}
       <aside className={`sidebar-column ${isSidebarOpen ? 'open' : 'closed'}`}>
         <div className="logo-section">
-          <img src="/assets/targaryen_logo.png" alt="Targaryen Logo" className="house-logo" />
-          <h1 className="logo-title">ORACLE</h1>
+          <img src="/assets/oracle_emblem.png" alt="ORACLE Emblem" className="oracle-emblem" />
+          <div className="logo-text">
+            <h1 className="logo-title">ORACLE</h1>
+            <span className="logo-subtitle">REALM CHRONICLE</span>
+          </div>
         </div>
         <nav className="nav-menu">
-          <Link to="/" className={`nav-link ${location.pathname === '/' ? 'active' : ''}`} onClick={handleNavClick}>
-            <CalendarDays size={20} />
-            <div className="nav-text">
-              <span className="nav-main">The Calendar</span>
-              <span className="nav-sub">Schedule</span>
-            </div>
+          <Link to="/" className={`nav-slab-link ${location.pathname === '/' ? 'active' : ''}`} onClick={handleNavClick}>
+            <img src="/assets/sidebar_nav/calendar_btn.png?v=2" alt="Calendar" className="nav-slab-img" />
           </Link>
-          <Link to="/todos" className={`nav-link ${location.pathname === '/todos' ? 'active' : ''}`} onClick={handleNavClick}>
-            <CheckSquare size={20} />
-            <div className="nav-text">
-              <span className="nav-main">Current Campaigns</span>
-              <span className="nav-sub">Tasks</span>
-            </div>
+          <Link to="/todos" className={`nav-slab-link ${location.pathname === '/todos' ? 'active' : ''}`} onClick={handleNavClick}>
+            <img src="/assets/sidebar_nav/campaigns_btn.png?v=2" alt="Current Campaigns" className="nav-slab-img" />
           </Link>
-          <Link to="/habits" className={`nav-link ${location.pathname === '/habits' ? 'active' : ''}`} onClick={handleNavClick}>
-            <Target size={20} />
-            <div className="nav-text">
-              <span className="nav-main">Alliances</span>
-              <span className="nav-sub">Habits</span>
-            </div>
+          <Link to="/habits" className={`nav-slab-link ${location.pathname === '/habits' ? 'active' : ''}`} onClick={handleNavClick}>
+            <img src="/assets/sidebar_nav/alliances_btn.png?v=2" alt="Alliances" className="nav-slab-img" />
           </Link>
-          <Link to="/archive" className={`nav-link ${location.pathname === '/archive' ? 'active' : ''}`} onClick={handleNavClick}>
-            <BookOpen size={20} />
-            <div className="nav-text">
-              <span className="nav-main">The Archive</span>
-              <span className="nav-sub">History</span>
-            </div>
+          <Link to="/archive" className={`nav-slab-link ${location.pathname === '/archive' ? 'active' : ''}`} onClick={handleNavClick}>
+            <img src="/assets/sidebar_nav/archive_btn.png?v=2" alt="The Archive" className="nav-slab-img" />
           </Link>
           <div className="nav-divider"></div>
-          <Link to="/treasury" className={`nav-link ${location.pathname === '/treasury' ? 'active' : ''}`} onClick={handleNavClick}>
-            <Coins size={20} />
-            <div className="nav-text">
-              <span className="nav-main">Royal Treasury</span>
-              <span className="nav-sub">Finances</span>
-            </div>
+          <Link to="/treasury" className={`nav-slab-link ${location.pathname === '/treasury' ? 'active' : ''}`} onClick={handleNavClick}>
+            <img src="/assets/sidebar_nav/treasury_btn.png?v=2" alt="Royal Treasury" className="nav-slab-img" />
           </Link>
-          <Link to="/war-room" className={`nav-link ${location.pathname === '/war-room' ? 'active' : ''}`} onClick={handleNavClick}>
-            <Map size={20} />
-            <div className="nav-text">
-              <span className="nav-main">The War Room</span>
-              <span className="nav-sub">Projects</span>
-            </div>
+          <Link to="/war-room" className={`nav-slab-link ${location.pathname === '/war-room' ? 'active' : ''}`} onClick={handleNavClick}>
+            <img src="/assets/sidebar_nav/war_room_btn.png?v=2" alt="The War Room" className="nav-slab-img" />
           </Link>
-          <Link to="/ravens" className={`nav-link ${location.pathname === '/ravens' ? 'active' : ''}`} onClick={handleNavClick}>
-            <Bird size={20} />
-            <div className="nav-text">
-              <span className="nav-main">Raven Network</span>
-              <span className="nav-sub">Reminders</span>
-            </div>
+          <Link to="/ravens" className={`nav-slab-link ${location.pathname === '/ravens' ? 'active' : ''}`} onClick={handleNavClick}>
+            <img src="/assets/sidebar_nav/ravens_btn.png?v=2" alt="Raven Network" className="nav-slab-img" />
           </Link>
         </nav>
         <div className="sidebar-decorations">
@@ -146,9 +121,6 @@ function AppContent() {
 
       {/* COLUMN 2: MAIN CONTENT */}
       <main className="main-column">
-        <div className="banners-decoration">
-          <img src="/assets/banners.png" alt="House Banners" />
-        </div>
         <header className="main-header">
           <div className="hamburger-btn-wrapper">
             <button
