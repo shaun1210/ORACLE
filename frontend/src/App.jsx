@@ -12,6 +12,7 @@ import RealmBackground from './components/RealmBackground/RealmBackground';
 import { CalendarDays, CheckSquare, Target, BookOpen, Coins, Map, Bird } from 'lucide-react';
 import api from './api';
 import './App.scss';
+import UiverseButton from './components/UiverseButton/UiverseButton';
 
 function AppContent() {
   const [ravens, setRavens] = useState([]);
@@ -151,20 +152,32 @@ function AppContent() {
           <div className="header-spacer"></div>
         </header>
         <div className="content-area">
-          <Routes>
-            <Route path="/" element={<Calendar />} />
-            <Route path="/todos" element={<TodoList />} />
-            <Route path="/habits" element={<HabitTracker />} />
-            <Route path="/archive" element={<Archive />} />
-            <Route path="/treasury" element={<Treasury />} />
-            <Route path="/war-room" element={<WarRoom />} />
-            <Route path="/ravens" element={<RavenNetwork />} />
-          </Routes>
+          <div key={location.pathname} className="route-transition-wrapper">
+            <Routes>
+              <Route path="/" element={<Calendar />} />
+              <Route path="/todos" element={<TodoList />} />
+              <Route path="/habits" element={<HabitTracker />} />
+              <Route path="/archive" element={<Archive />} />
+              <Route path="/treasury" element={<Treasury />} />
+              <Route path="/war-room" element={<WarRoom />} />
+              <Route path="/ravens" element={<RavenNetwork />} />
+            </Routes>
+          </div>
         </div>
         {!isChatOpen && (
-          <button className="maester-toggle-btn" onClick={() => setIsChatOpen(true)} title="Consult the Maester">
-            <div className="maester-avatar-indicator"></div>
-          </button>
+          <div style={{ position: 'absolute', bottom: '2rem', right: '2rem', zIndex: 100 }}>
+            <UiverseButton scale={0.7} onClick={() => setIsChatOpen(true)} title="Consult the Maester">
+              <div style={{ 
+                width: '100%', 
+                height: '100%', 
+                borderRadius: '50%', 
+                background: 'url("/assets/maester_portrait.jpg") center 15%/130% no-repeat',
+                position: 'relative'
+              }}>
+                <div className="maester-avatar-indicator"></div>
+              </div>
+            </UiverseButton>
+          </div>
         )}
       </main>
 

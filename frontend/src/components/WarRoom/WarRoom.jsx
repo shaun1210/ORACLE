@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { Map, Plus, Trash2, CheckCircle, Circle, Crosshair } from 'lucide-react';
 import api from '../../api';
 import './WarRoom.scss';
+import UiverseButton from '../UiverseButton/UiverseButton';
+import PushableButton from '../PushableButton/PushableButton';
 
 const WarRoom = () => {
   const [campaigns, setCampaigns] = useState([]);
@@ -162,13 +164,15 @@ const WarRoom = () => {
                       <div className="progress-bar-fill" style={{ width: `${c.progress}%` }}></div>
                     </div>
                   </div>
-                  <button 
-                    className="quick-delete-btn" 
-                    onClick={(e) => { e.stopPropagation(); handleDelete(c.id); }}
-                    title="Abandon Campaign"
-                  >
-                    <Trash2 size={16} />
-                  </button>
+                  <div style={{ marginLeft: '1rem' }}>
+                    <UiverseButton 
+                      scale={0.3}
+                      onClick={(e) => { e.stopPropagation(); handleDelete(c.id); }}
+                      title="Abandon Campaign"
+                    >
+                      <Trash2 size={24} />
+                    </UiverseButton>
+                  </div>
                 </div>
               ))
             )}
@@ -180,9 +184,9 @@ const WarRoom = () => {
               <div className="active-campaign-view">
                 <div className="ac-header">
                   <h4>{activeCampaign.title}</h4>
-                  <button className="delete-btn" onClick={(e) => { e.stopPropagation(); handleDelete(activeCampaign.id); }}>
-                    <Trash2 size={20} />
-                  </button>
+                  <UiverseButton scale={0.4} onClick={(e) => { e.stopPropagation(); handleDelete(activeCampaign.id); }}>
+                    <Trash2 size={36} />
+                  </UiverseButton>
                 </div>
                 
                 <div className="ac-progress">
@@ -199,29 +203,32 @@ const WarRoom = () => {
                         {st.completed ? <CheckCircle size={20} className="check-icon" /> : <Circle size={20} className="circle-icon" />}
                         <span>{st.title}</span>
                       </div>
-                      <button 
-                        className="delete-milestone-btn" 
-                        onClick={(e) => { e.stopPropagation(); handleDeleteMilestone(activeCampaign.id, idx); }}
-                        title="Delete Milestone"
-                      >
-                        <Trash2 size={16} />
-                      </button>
+                      <div style={{ marginLeft: '0.5rem' }}>
+                        <UiverseButton 
+                          scale={0.3}
+                          onClick={(e) => { e.stopPropagation(); handleDeleteMilestone(activeCampaign.id, idx); }}
+                          title="Delete Milestone"
+                        >
+                          <Trash2 size={24} />
+                        </UiverseButton>
+                      </div>
                     </div>
                   ))}
                   {activeCampaign.subtasks.length === 0 && (
                     <div className="no-subtasks">No specific objectives set for this campaign.</div>
                   )}
                   
-                  <form onSubmit={handleAddMilestone} className="add-milestone-form">
+                  <form onSubmit={handleAddMilestone} className="add-milestone-form" style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
                     <input 
                       type="text"
                       value={newMilestoneTitle}
                       onChange={(e) => setNewMilestoneTitle(e.target.value)}
                       placeholder="Add new milestone..."
+                      style={{ flex: 1 }}
                     />
-                    <button type="submit" disabled={!newMilestoneTitle.trim()}>
-                      <Plus size={18} />
-                    </button>
+                    <UiverseButton type="submit" scale={0.4} disabled={!newMilestoneTitle.trim()}>
+                      <Plus size={36} />
+                    </UiverseButton>
                   </form>
                 </div>
               </div>
@@ -250,9 +257,11 @@ const WarRoom = () => {
                     ></textarea>
                   </div>
                   
-                  <button type="submit" className="declare-btn">
-                    <Plus size={18} /> Declare Campaign
-                  </button>
+                  <div style={{ display: 'flex', justifyContent: 'center', marginTop: '1rem' }}>
+                    <PushableButton type="submit">
+                      Declare Campaign
+                    </PushableButton>
+                  </div>
                 </form>
               </div>
             )}

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import api from '../../api';
 import './TodoList.scss';
 import { Check, Circle, Plus, Trash2 } from 'lucide-react';
+import UiverseButton from '../UiverseButton/UiverseButton';
 
 const TodoList = () => {
   const [todos, setTodos] = useState([]);
@@ -67,29 +68,30 @@ const TodoList = () => {
         <div className="div-line right"></div>
       </div>
 
-      <form className="add-todo-form" onSubmit={addTodo}>
+      <form className="add-todo-form" onSubmit={addTodo} style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
         <input 
           type="text" 
           value={newTodo}
           onChange={(e) => setNewTodo(e.target.value)}
           placeholder="Add a new task..." 
           className="todo-input"
+          style={{ flex: 1 }}
         />
-        <button type="submit" className="add-btn">
-          <Plus size={20} />
-        </button>
+        <UiverseButton type="submit" scale={0.5}>
+          <Plus size={48} />
+        </UiverseButton>
       </form>
 
       <div className="todo-list">
         {todos.map(todo => (
-          <div key={todo.id} className={`todo-item ${todo.completed ? 'completed' : ''}`}>
-            <button className="toggle-btn" onClick={() => toggleTodo(todo.id)}>
-              {todo.completed ? <Check size={20} className="check-icon" /> : <Circle size={20} className="circle-icon" />}
-            </button>
-            <span className="todo-title">{todo.title}</span>
-            <button className="delete-btn" onClick={() => deleteTodo(todo.id)}>
-              <Trash2 size={18} />
-            </button>
+          <div key={todo.id} className={`todo-item ${todo.completed ? 'completed' : ''}`} style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+            <UiverseButton scale={0.4} onClick={() => toggleTodo(todo.id)}>
+              {todo.completed ? <Check size={48} /> : <Circle size={48} />}
+            </UiverseButton>
+            <span className="todo-title" style={{ flex: 1 }}>{todo.title}</span>
+            <UiverseButton scale={0.4} onClick={() => deleteTodo(todo.id)}>
+              <Trash2 size={40} />
+            </UiverseButton>
           </div>
         ))}
       </div>

@@ -70,6 +70,7 @@ html, body, #root {
   width: 100%;
   height: 100%;
   overflow: hidden;
+  font-size: 85%; /* Scales down 1rem, replacing the old zoom: 0.8 hack */
 }
 
 body {
@@ -209,21 +210,32 @@ input, textarea, select {
   font-size: 0.8rem;
   letter-spacing: 1.5px;
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1), 0 3px 8px rgba(0, 0, 0, 0.4);
-  transition: all var(--transition-fast);
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Bouncy bloom transition */
+  position: relative;
+  z-index: 1;
 
   &:hover {
     background: linear-gradient(135deg, #a01e1e, var(--royal-red-dark));
-    transform: translateY(-1px);
-    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15), 0 5px 12px rgba(0, 0, 0, 0.5);
+    transform: scale(1.08); /* Bloom scale up */
+    /* Adapted bloom glow using gold and red */
+    box-shadow: 
+      inset 0 1px 0 rgba(255, 255, 255, 0.2), 
+      0 0 15px 5px rgba(212, 175, 55, 0.35), /* Gold inner bloom */
+      0 0 30px 10px rgba(139, 26, 26, 0.4);  /* Red outer bloom */
   }
 
   &:active {
-    transform: translateY(0);
+    transform: scale(0.92); /* Shrink on click like the snippet */
+    box-shadow: 
+      inset 0 1px 0 rgba(255, 255, 255, 0.1), 
+      0 0 5px 2px rgba(139, 26, 26, 0.4);
   }
 
   &:disabled {
     opacity: 0.5;
     cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
   }
 }
 
@@ -236,11 +248,23 @@ input, textarea, select {
   font-family: 'Cinzel', serif;
   font-size: 0.8rem;
   letter-spacing: 1px;
-  transition: all var(--transition-fast);
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  position: relative;
+  z-index: 1;
 
   &:hover {
-    background: rgba(139, 69, 0, 0.08);
-    border-color: var(--text-gold-soft);
+    background: rgba(139, 69, 0, 0.15);
+    border-color: var(--gold);
+    color: var(--gold-bright);
+    transform: scale(1.08);
+    box-shadow: 
+      inset 0 0 10px rgba(212, 175, 55, 0.1),
+      0 0 15px 5px rgba(212, 175, 55, 0.25); /* Subtle gold bloom */
+  }
+
+  &:active {
+    transform: scale(0.92);
+    box-shadow: 0 0 5px 2px rgba(212, 175, 55, 0.2);
   }
 }
 
@@ -288,6 +312,11 @@ input, textarea, select {
 @keyframes fadeIn {
   from { opacity: 0; }
   to   { opacity: 1; }
+}
+
+@keyframes pageFadeIn {
+  from { opacity: 0; transform: translateY(10px) scale(0.98); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
 }
 
 @keyframes shimmer {

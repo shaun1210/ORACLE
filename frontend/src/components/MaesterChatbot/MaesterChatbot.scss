@@ -3,7 +3,9 @@
 
 .advisor-column {
   width: 350px;
-  @include banner-panel;
+  background: 
+    linear-gradient(to bottom, rgba(27, 36, 30, 0.85), rgba(20, 26, 22, 0.95)),
+    url("/assets/knight_bg.png") center/cover no-repeat;
   border-left: 8px solid #2a221d; /* Inner iron divider */
   display: flex;
   flex-direction: column;
@@ -148,7 +150,7 @@
         max-width: 85%;
         
         p {
-          font-family: 'Cinzel', serif;
+          font-family: 'Playfair Display', serif;
           font-size: 0.95rem;
           line-height: 1.6;
           margin: 0;
@@ -185,7 +187,7 @@
       border: 2px solid rgba(255, 255, 255, 0.08);
       color: #f4e8d1;
       padding: 0.75rem 1rem;
-      font-family: 'Cinzel', serif;
+      font-family: 'Playfair Display', serif;
       font-size: 0.95rem;
       border-radius: 4px;
       outline: none;

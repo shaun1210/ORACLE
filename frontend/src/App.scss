@@ -6,9 +6,8 @@
 
 /* Root fills the entire viewport scaled to 80% proportion */
 .app-frame {
-  width: 125vw;
-  height: 125vh;
-  zoom: 0.8;
+  width: 100vw;
+  height: 100vh;
   display: flex;
   overflow: hidden;
   background: transparent;
@@ -340,6 +339,11 @@
     padding: 1.5rem;
     overflow-y: auto;
     background: transparent;
+
+    .route-transition-wrapper {
+      animation: pageFadeIn 0.4s var(--ease-royal);
+      height: 100%;
+    }
   }
 }
 

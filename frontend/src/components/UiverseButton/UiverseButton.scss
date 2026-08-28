@@ -1,0 +1,63 @@
+/* Simplified clean design as requested */
+.uiverse-button-wrapper {
+  display: inline-flex;
+}
+
+.uiverse-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  margin: 0;
+  outline: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease-in-out;
+}
+
+.uiverse-button .button-inner {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background-color: #1a1511; /* Dark medieval background */
+  border: 4px solid #d4af37; /* Gold ring */
+  display: grid;
+  place-content: center;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.8), inset 0 0 15px rgba(0,0,0,0.8);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  color: #d4af37;
+  overflow: hidden;
+  position: relative;
+}
+
+.uiverse-button:hover .button-inner {
+  box-shadow: 
+    0 8px 20px rgba(0, 0, 0, 0.9), 
+    0 0 15px rgba(212, 175, 55, 0.4), /* Gold glow */
+    inset 0 0 20px rgba(212, 175, 55, 0.2);
+  transform: translateY(-2px) scale(1.05);
+  filter: brightness(1.1);
+  border-color: #fce27e;
+  color: #fce27e;
+}
+
+.uiverse-button:active .button-inner {
+  transform: translateY(2px) scale(0.95);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.8), inset 0 0 10px rgba(0,0,0,0.9);
+}
+
+.uiverse-button:disabled .button-inner {
+  border-color: #555;
+  color: #555;
+  box-shadow: none;
+  cursor: not-allowed;
+  transform: none;
+  background-color: #111;
+}
+
+/* Ensure inner icons map properly */
+.uiverse-button svg {
+  transition: all 0.2s ease-in-out;
+  stroke: currentColor;
+}

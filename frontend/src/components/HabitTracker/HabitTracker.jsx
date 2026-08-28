@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import api from '../../api';
 import './HabitTracker.scss';
 import { Flame, Plus, Trash2 } from 'lucide-react';
+import UiverseButton from '../UiverseButton/UiverseButton';
 
 const HabitTracker = () => {
   const [habits, setHabits] = useState([]);
@@ -72,17 +73,18 @@ const HabitTracker = () => {
       </div>
 
 
-      <form className="add-habit-form" onSubmit={addHabit}>
+      <form className="add-habit-form" onSubmit={addHabit} style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
         <input 
           type="text" 
           value={newHabit}
           onChange={(e) => setNewHabit(e.target.value)}
           placeholder="New habit to track..." 
           className="habit-input"
+          style={{ flex: 1 }}
         />
-        <button type="submit" className="add-btn">
-          <Plus size={20} />
-        </button>
+        <UiverseButton type="submit" scale={0.5}>
+          <Plus size={48} />
+        </UiverseButton>
       </form>
 
       <div className="habit-grid">
@@ -90,14 +92,14 @@ const HabitTracker = () => {
           <div key={habit.id} className="habit-card">
             <div className="habit-header">
               <span className="habit-title">{habit.title}</span>
-              <div className="habit-actions">
+              <div className="habit-actions" style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
                 <div className="streak-badge">
                   <Flame size={16} className="flame-icon" />
                   <span>{habit.streak || 0}</span>
                 </div>
-                <button className="delete-btn" onClick={() => deleteHabit(habit.id)} title="Delete Habit">
-                  <Trash2 size={16} />
-                </button>
+                <UiverseButton scale={0.4} onClick={() => deleteHabit(habit.id)} title="Delete Habit">
+                  <Trash2 size={40} />
+                </UiverseButton>
               </div>
             </div>
             <div className="week-tracker">

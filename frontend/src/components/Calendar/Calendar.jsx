@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import api from '../../api';
 import './Calendar.scss';
 import { Trash2, ChevronLeft, ChevronRight } from 'lucide-react';
+import UiverseButton from '../UiverseButton/UiverseButton';
+import PushableButton from '../PushableButton/PushableButton';
 
 const Calendar = () => {
   const [schedule, setSchedule] = useState([]);
@@ -101,9 +103,9 @@ const Calendar = () => {
     <div className="calendar-container">
       <div className="calendar-header">
         <div className="month-navigation">
-          <button className="nav-btn" onClick={prevMonth}><ChevronLeft size={24} /></button>
+          <UiverseButton scale={0.4} onClick={prevMonth}><ChevronLeft size={48} /></UiverseButton>
           <h3>{monthNames[currentDate.getMonth()]} {currentDate.getFullYear()}</h3>
-          <button className="nav-btn" onClick={nextMonth}><ChevronRight size={24} /></button>
+          <UiverseButton scale={0.4} onClick={nextMonth}><ChevronRight size={48} /></UiverseButton>
         </div>
       </div>
 
@@ -136,7 +138,9 @@ const Calendar = () => {
             min="15"
             required
           />
-          <button type="submit" className="submit-event-btn">Save</button>
+          <div style={{ display: 'flex', justifyContent: 'center', marginTop: '1rem' }}>
+            <PushableButton type="submit">Save Event</PushableButton>
+          </div>
         </form>
       )}
 
@@ -156,11 +160,11 @@ const Calendar = () => {
             <div className="event-detail-row">
               <strong>Duration:</strong> <span>{selectedEvent.duration} minutes</span>
             </div>
-            <div className="modal-actions">
-              <button className="delete-btn" onClick={() => deleteEvent(selectedEvent.id)}>
-                <Trash2 size={16} /> Delete Event
-              </button>
-              <button className="close-btn" onClick={() => setSelectedEvent(null)}>Close</button>
+            <div className="modal-actions" style={{ gap: '2rem' }}>
+              <UiverseButton scale={0.5} onClick={() => deleteEvent(selectedEvent.id)}>
+                <Trash2 size={32} />
+              </UiverseButton>
+              <PushableButton onClick={() => setSelectedEvent(null)}>Close</PushableButton>
             </div>
           </div>
         </div>
@@ -193,9 +197,11 @@ const Calendar = () => {
                           onClick={(e) => { e.stopPropagation(); setSelectedEvent(item); }}
                         >
                           <span className="compact-title">{item.time} {item.title}</span>
-                          <button className="delete-btn" onClick={(e) => { e.stopPropagation(); deleteEvent(item.id); }}>
-                            <Trash2 size={12} />
-                          </button>
+                          <div style={{ marginLeft: '0.5rem' }}>
+                            <UiverseButton scale={0.3} onClick={(e) => { e.stopPropagation(); deleteEvent(item.id); }}>
+                              <Trash2 size={24} />
+                            </UiverseButton>
+                          </div>
                         </div>
                       ))}
                   </div>
