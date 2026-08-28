@@ -142,7 +142,7 @@ const Calendar = () => {
 
       {selectedEvent && (
         <div className="event-modal-overlay" onClick={() => setSelectedEvent(null)}>
-          <div className="event-modal glass-panel" onClick={e => e.stopPropagation()}>
+          <div className="event-modal" onClick={e => e.stopPropagation()}>
             <h3>Event Details</h3>
             <div className="event-detail-row">
               <strong>Title:</strong> <p>{selectedEvent.title}</p>

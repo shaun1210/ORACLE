@@ -3,10 +3,11 @@
    Full-viewport layout, no fixed max-width wrapper
    ============================================= */
 
-/* Root fills the entire viewport */
+/* Root fills the entire viewport scaled to 80% proportion */
 .app-frame {
-  width: 100vw;
-  height: 100vh;
+  width: 125vw;
+  height: 125vh;
+  zoom: 0.8;
   display: flex;
   overflow: hidden;
   background: #1a1614;
@@ -81,41 +82,68 @@
 
   .logo-section {
     display: flex;
-    flex-direction: column;
     align-items: center;
-    gap: 0.5rem;
-    padding: 1.75rem 1rem 1.5rem;
+    gap: 0.85rem;
+    padding: 1.1rem 1.25rem;
     border-bottom: 1px solid #2a221d;
-    background: linear-gradient(to bottom, #0d0b09, #1a1412);
+    background: linear-gradient(to right, #0d0b09, #181310, #0d0b09);
     position: relative;
 
+    /* Subtle gold shimmer line at the bottom */
     &::after {
       content: '';
       position: absolute;
-      bottom: 0; left: 15%; right: 15%;
+      bottom: 0; left: 10%; right: 10%;
       height: 1px;
-      background: linear-gradient(to right, transparent, #d4af3760, transparent);
+      background: linear-gradient(to right, transparent, #d4af3770, transparent);
     }
 
-    .house-logo {
-      width: 62px;
-      height: auto;
-      filter: invert(1) brightness(0.7) sepia(1) hue-rotate(330deg) saturate(3)
-        drop-shadow(0 2px 6px rgba(0, 0, 0, 0.9));
-      opacity: 0.85;
+    .oracle-emblem {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      border: 2px solid #d4af37;
+      box-shadow:
+        0 0 10px rgba(212, 175, 55, 0.35),
+        0 2px 8px rgba(0, 0, 0, 0.8);
+      object-fit: cover;
+      flex-shrink: 0;
+      transition: all 0.3s ease;
+
+      &:hover {
+        transform: scale(1.08) rotate(3deg);
+        box-shadow: 0 0 16px rgba(212, 175, 55, 0.6);
+        border-color: #f4e8d1;
+      }
     }
 
-    .logo-title {
-      font-size: 1.7rem;
-      letter-spacing: 6px;
-      font-family: 'Cinzel', serif;
-      font-weight: 700;
-      color: #d4af37;
-      text-shadow:
-        0 0 15px rgba(212, 175, 55, 0.4),
-        0 2px 4px rgba(0, 0, 0, 0.9);
-      margin: 0;
-      white-space: nowrap;
+    .logo-text {
+      display: flex;
+      flex-direction: column;
+      gap: 0.1rem;
+
+      .logo-title {
+        font-size: 1.55rem;
+        letter-spacing: 4px;
+        font-family: 'Cinzel', serif;
+        font-weight: 700;
+        color: #d4af37;
+        text-shadow:
+          0 0 12px rgba(212, 175, 55, 0.4),
+          0 2px 4px rgba(0, 0, 0, 0.9);
+        margin: 0;
+        line-height: 1;
+        white-space: nowrap;
+      }
+
+      .logo-subtitle {
+        font-family: 'Cinzel', serif;
+        font-size: 0.58rem;
+        color: #8b7d73;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        margin: 0;
+      }
     }
   }
 
@@ -200,25 +228,6 @@
   z-index: 1;
   overflow: hidden;
 
-  .banners-decoration {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 100px;
-    z-index: 0;
-    opacity: 0.12;
-    pointer-events: none;
-    overflow: hidden;
-
-    img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: top;
-      filter: sepia(0.5) contrast(1.2);
-    }
-  }
 
   .main-header {
     position: relative;

@@ -83,8 +83,11 @@ function AppContent() {
       {/* COLUMN 1: SIDEBAR */}
       <aside className={`sidebar-column ${isSidebarOpen ? 'open' : 'closed'}`}>
         <div className="logo-section">
-          <img src="/assets/targaryen_logo.png" alt="Targaryen Logo" className="house-logo" />
-          <h1 className="logo-title">ORACLE</h1>
+          <img src="/assets/oracle_emblem.png" alt="ORACLE Emblem" className="oracle-emblem" />
+          <div className="logo-text">
+            <h1 className="logo-title">ORACLE</h1>
+            <span className="logo-subtitle">REALM CHRONICLE</span>
+          </div>
         </div>
         <nav className="nav-menu">
           <Link to="/" className={`nav-link ${location.pathname === '/' ? 'active' : ''}`} onClick={handleNavClick}>
@@ -146,9 +149,6 @@ function AppContent() {
 
       {/* COLUMN 2: MAIN CONTENT */}
       <main className="main-column">
-        <div className="banners-decoration">
-          <img src="/assets/banners.png" alt="House Banners" />
-        </div>
         <header className="main-header">
           <div className="hamburger-btn-wrapper">
             <button
