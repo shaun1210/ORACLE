@@ -8,6 +8,7 @@ import Treasury from './components/Treasury/Treasury';
 import WarRoom from './components/WarRoom/WarRoom';
 import RavenNetwork from './components/RavenNetwork/RavenNetwork';
 import MaesterChatbot from './components/MaesterChatbot/MaesterChatbot';
+import RealmBackground from './components/RealmBackground/RealmBackground';
 import { CalendarDays, CheckSquare, Target, BookOpen, Coins, Map, Bird } from 'lucide-react';
 import api from './api';
 import './App.scss';
@@ -63,6 +64,9 @@ function AppContent() {
 
   return (
     <div className={`app-frame ${isSidebarOpen ? 'sidebar-open' : 'sidebar-closed'}`}>
+
+      {/* Atmospheric Realm Background */}
+      <RealmBackground />
 
       {/* Global Raven Toast */}
       {activeToast && (

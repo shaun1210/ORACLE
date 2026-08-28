@@ -1,0 +1,70 @@
+/* =============================================
+   ORACLE — Shared CSS Textures
+   Pure-CSS replacements for image backgrounds
+   ============================================= */
+
+/* =============================================
+   PARCHMENT — Aged vellum (replaces parchment_bg.jpg)
+   Layered gradients simulate aged parchment with
+   warm center, darker edges, and subtle stains
+   ============================================= */
+@mixin parchment-texture($opacity: 1) {
+  background-color: #c9b490;
+  background-image:
+    /* Blotches / age stains */
+    radial-gradient(ellipse 20% 30% at 15% 20%, rgba(120, 85, 40, 0.12) 0%, transparent 70%),
+    radial-gradient(ellipse 25% 20% at 85% 75%, rgba(120, 85, 40, 0.1) 0%, transparent 70%),
+    radial-gradient(ellipse 15% 25% at 70% 15%, rgba(100, 70, 30, 0.08) 0%, transparent 70%),
+    radial-gradient(ellipse 30% 15% at 30% 85%, rgba(100, 70, 30, 0.09) 0%, transparent 70%),
+    /* Edge darkening (aged borders) */
+    radial-gradient(ellipse 120% 120% at 50% 50%, transparent 55%, rgba(90, 60, 25, 0.18) 85%, rgba(70, 45, 15, 0.3) 100%),
+    /* Warm center glow */
+    radial-gradient(ellipse 90% 90% at 50% 45%, rgba(240, 225, 190, 0.5) 0%, rgba(215, 190, 150, 0.25) 45%, transparent 75%),
+    /* Base vellum gradient */
+    linear-gradient(160deg, #d4c19d 0%, #cbb89d 35%, #c2ac8a 70%, #b8a17e 100%),
+    /* Fibrous grain (SVG noise) */
+    url("data:image/svg+xml,%3Csvg viewBox='0 0 300 300' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='pnoise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='5' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23pnoise)' opacity='0.14'/%3E%3C/svg%3E");
+  background-size: 100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 100%, 220px 220px;
+  background-repeat: no-repeat, no-repeat, no-repeat, no-repeat, no-repeat, no-repeat, no-repeat, repeat;
+  opacity: $opacity;
+}
+
+/* =============================================
+   DARK IRON STONE — Deep panel background
+   for sidebar/panels over the realm background
+   ============================================= */
+@mixin dark-stone-panel($blur: 8px) {
+  background:
+    linear-gradient(to bottom, rgba(18, 13, 10, 0.9), rgba(26, 20, 15, 0.88) 50%, rgba(18, 13, 10, 0.9));
+  backdrop-filter: blur($blur);
+}
+
+/* =============================================
+   EMBER GLOW — Lava/fire ambience (replaces lava_bg.jpg)
+   for War Room accents
+   ============================================= */
+@mixin ember-glow-panel {
+  background:
+    radial-gradient(ellipse 60% 50% at 50% 110%, rgba(255, 100, 20, 0.12) 0%, transparent 70%),
+    radial-gradient(ellipse 40% 30% at 20% 100%, rgba(200, 50, 10, 0.1) 0%, transparent 70%),
+    radial-gradient(ellipse 40% 30% at 80% 100%, rgba(230, 80, 15, 0.08) 0%, transparent 70%),
+    linear-gradient(to bottom, #120c08 0%, #1a0f08 60%, #241108 100%);
+}
+
+/* =============================================
+   SILK BANNER — Chat panel background
+   (replaces knight_bg.png)
+   ============================================= */
+@mixin banner-panel {
+  background:
+    radial-gradient(ellipse 50% 35% at 50% 0%, rgba(212, 175, 55, 0.06) 0%, transparent 70%),
+    repeating-linear-gradient(
+      115deg,
+      rgba(212, 175, 55, 0.015) 0px,
+      rgba(212, 175, 55, 0.015) 1px,
+      transparent 1px,
+      transparent 12px
+    ),
+    linear-gradient(200deg, rgba(24, 16, 11, 0.97) 0%, rgba(18, 13, 9, 0.96) 50%, rgba(14, 10, 7, 0.97) 100%);
+  backdrop-filter: blur(6px);
+}

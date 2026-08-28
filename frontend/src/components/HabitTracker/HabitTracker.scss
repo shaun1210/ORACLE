@@ -2,11 +2,13 @@
    YOUR HABITS — GOT Alliances & Fealties
    ============================================= */
 
+@use '../../styles/textures' as *;
+
 .habit-container {
   max-width: 920px;
   margin: 0 auto;
   padding: 2rem 2rem;
-  background: url("/assets/parchment_bg.jpg") center/cover no-repeat;
+  @include parchment-texture;
   border-radius: 6px;
   min-height: 80vh;
   box-shadow:
@@ -251,3 +253,4 @@
   0%   { transform: scale(1);   opacity: 0.8; }
   100% { transform: scale(1.1); opacity: 1; color: #d4af37; }
 }
+

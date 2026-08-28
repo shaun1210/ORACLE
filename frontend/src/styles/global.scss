@@ -1,20 +1,63 @@
-@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap');
 
 :root {
-  --bg-color: #1a1614; /* Deep dark wood/iron backdrop */
-  --panel-bg: #cbb89d; /* Darker, aged parchment */
-  --text-primary: #2a1f18; /* Dark brown ink */
+  /* =============================================
+     ORACLE DESIGN TOKENS — Medieval Royal Theme
+     ============================================= */
+
+  /* Deep realm backdrop tones */
+  --bg-color: #1a1614;
+  --bg-deep: #0d0a08;
+  --bg-abyss: #060504;
+
+  /* Parchment panel tones */
+  --panel-bg: #cbb89d;
+  --panel-bg-light: #d8c7ad;
+  --panel-bg-dark: #b5a288;
+
+  /* Ink / text tones */
+  --text-primary: #2a1f18;
   --text-secondary: #5a4b41;
-  --accent-color: #7b1616; /* Deep blood red / regal burgundy */
+  --text-ink-dark: #3d1f0e;
+  --text-gold-soft: #8b5a1a;
+
+  /* Royal accents */
+  --gold: #d4af37;
+  --gold-bright: #f0cc5a;
+  --gold-dim: rgba(212, 175, 55, 0.4);
+  --gold-faint: rgba(212, 175, 55, 0.15);
+  --accent-color: #7b1616;
   --accent-hover: #540e0e;
+  --royal-red: #8b1a1a;
+  --royal-red-dark: #6b0f0f;
+
+  /* Status colors */
   --danger: #8a1313;
   --success: #17422b;
   --warning: #a15c12;
-  --border-color: #3b312b; /* Dark iron/wood border */
+
+  /* Iron / wood frame tones */
+  --iron-dark: #2a221d;
+  --iron-mid: #3b312b;
+  --iron-light: #4a3e35;
+  --border-color: #3b312b;
+
+  /* Effects */
   --glass-shadow: inset 0 0 60px rgba(71, 52, 34, 0.4), 0 15px 35px rgba(0, 0, 0, 0.95);
   --border-radius: 4px;
   --iron-highlight: rgba(255, 255, 255, 0.1);
   --iron-shadow: rgba(0, 0, 0, 0.8);
+
+  /* Glow presets */
+  --gold-glow-sm: 0 0 8px rgba(212, 175, 55, 0.35);
+  --gold-glow-md: 0 0 16px rgba(212, 175, 55, 0.45);
+  --gold-glow-lg: 0 0 24px rgba(212, 175, 55, 0.55);
+
+  /* Transition presets */
+  --ease-royal: cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-fast: 0.2s var(--ease-royal);
+  --transition-med: 0.35s var(--ease-royal);
+  --transition-slow: 0.6s var(--ease-royal);
 }
 
 * {
@@ -31,8 +74,10 @@ html, body, #root {
 
 body {
   font-family: 'Cinzel', serif;
-  background-color: #0c1012;
+  background-color: var(--bg-abyss);
   color: var(--text-primary);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -42,11 +87,17 @@ h1, h2, h3, h4, h5, h6 {
   color: var(--accent-color);
 }
 
+p {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.05rem;
+  line-height: 1.55;
+}
+
 a {
   color: var(--accent-color);
   text-decoration: none;
-  transition: color 0.3s ease;
-  
+  transition: color var(--transition-fast);
+
   &:hover {
     color: var(--accent-hover);
   }
@@ -57,27 +108,39 @@ button {
   font-family: 'Cinzel', serif;
   border: none;
   outline: none;
-  transition: all 0.3s ease;
+  transition: all var(--transition-fast);
   font-weight: 600;
 }
 
-/* Redefined Panel - Heavy Iron Frame */
+input, textarea, select {
+  font-family: 'Cormorant Garamond', serif;
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+
+  &:focus {
+    outline: none;
+    border-color: var(--royal-red);
+    box-shadow: 0 0 0 2px rgba(139, 26, 26, 0.15);
+  }
+}
+
+/* =============================================
+   PANEL SYSTEM — Aged parchment with iron frame
+   ============================================= */
 .glass-panel {
   background: var(--panel-bg);
   backdrop-filter: none;
   -webkit-backdrop-filter: none;
-  /* Thick iron border */
-  border: 12px solid #2a221d;
+  border: 12px solid var(--iron-dark);
   border-radius: var(--border-radius);
-  box-shadow: 
-    inset 0 0 10px rgba(0,0,0,0.8), /* shadow inside parchment */
-    0 20px 50px rgba(0,0,0,0.9), /* heavy drop shadow */
-    0 0 0 2px #4a3e35, /* thin lighter border around iron */
-    inset 0 0 0 2px #4a3e35; /* thin lighter border inside iron */
+  box-shadow:
+    inset 0 0 10px rgba(0, 0, 0, 0.8),
+    0 20px 50px rgba(0, 0, 0, 0.9),
+    0 0 0 2px var(--iron-light),
+    inset 0 0 0 2px var(--iron-light);
   padding: 1.5rem;
   position: relative;
-  
-  /* Additional noise on the parchment to age it */
+
+  /* Aged noise on the parchment */
   &::before {
     content: '';
     position: absolute;
@@ -86,8 +149,8 @@ button {
     pointer-events: none;
     z-index: 0;
   }
-  
-  /* Inner brass filigree illusion */
+
+  /* Inner brass filigree border */
   &::after {
     content: '';
     position: absolute;
@@ -99,25 +162,135 @@ button {
     pointer-events: none;
     z-index: 1;
   }
-  
+
   > * {
     position: relative;
     z-index: 2;
   }
 }
 
-/* Custom Scrollbar for parchment aesthetic */
+/* =============================================
+   ORNAMENTAL DIVIDER — Gold flourish line
+   ============================================= */
+.ornament-divider {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  width: 100%;
+
+  .divider-line {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--gold-dim));
+    &.right { background: linear-gradient(to left, transparent, var(--gold-dim)); }
+  }
+
+  .divider-diamond {
+    width: 5px;
+    height: 5px;
+    background: var(--gold);
+    transform: rotate(45deg);
+    box-shadow: var(--gold-glow-sm);
+  }
+}
+
+/* =============================================
+   ROYAL BUTTON — Shared button treatment
+   ============================================= */
+.royal-btn {
+  background: linear-gradient(135deg, var(--royal-red), var(--royal-red-dark));
+  color: #f4dfa8;
+  padding: 0.6rem 1.4rem;
+  border-radius: 3px;
+  font-weight: 700;
+  border: 1px solid #5a1010;
+  text-transform: uppercase;
+  font-family: 'Cinzel', serif;
+  font-size: 0.8rem;
+  letter-spacing: 1.5px;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1), 0 3px 8px rgba(0, 0, 0, 0.4);
+  transition: all var(--transition-fast);
+
+  &:hover {
+    background: linear-gradient(135deg, #a01e1e, var(--royal-red-dark));
+    transform: translateY(-1px);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15), 0 5px 12px rgba(0, 0, 0, 0.5);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
+.ghost-btn {
+  background: transparent;
+  border: 1px solid rgba(139, 69, 0, 0.4);
+  color: var(--text-gold-soft);
+  padding: 0.5rem 1.25rem;
+  border-radius: 3px;
+  font-family: 'Cinzel', serif;
+  font-size: 0.8rem;
+  letter-spacing: 1px;
+  transition: all var(--transition-fast);
+
+  &:hover {
+    background: rgba(139, 69, 0, 0.08);
+    border-color: var(--text-gold-soft);
+  }
+}
+
+/* =============================================
+   CUSTOM SCROLLBAR — Parchment aesthetic
+   ============================================= */
 ::-webkit-scrollbar {
   width: 10px;
+  height: 10px;
 }
 ::-webkit-scrollbar-track {
   background: #1a0b12;
   border-left: 1px solid var(--border-color);
 }
 ::-webkit-scrollbar-thumb {
-  background: var(--accent-color);
+  background: linear-gradient(to bottom, var(--gold), #8b6914);
   border: 1px solid var(--border-color);
+  border-radius: 2px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--accent-hover);
+  background: linear-gradient(to bottom, var(--gold-bright), var(--gold));
+}
+
+/* =============================================
+   SELECTION — Royal gold
+   ============================================= */
+::selection {
+  background: rgba(212, 175, 55, 0.3);
+  color: #fff8e7;
+}
+
+/* =============================================
+   LOADING SPINNER — Ember pulse
+   ============================================= */
+@keyframes emberPulse {
+  0%, 100% { opacity: 0.4; transform: scale(0.9); }
+  50% { opacity: 1; transform: scale(1.05); }
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
 }

@@ -1,6 +1,7 @@
 /* =============================================
    ORACLE — App Layout
-   Full-viewport layout, no fixed max-width wrapper
+   Full-viewport layout, atmospheric realm background
+   shows through translucent panels
    ============================================= */
 
 /* Root fills the entire viewport scaled to 80% proportion */
@@ -10,7 +11,7 @@
   zoom: 0.8;
   display: flex;
   overflow: hidden;
-  background: #1a1614;
+  background: transparent;
   position: relative;
 }
 
@@ -21,6 +22,7 @@
   position: fixed;
   inset: 0;
   background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(2px);
   z-index: 50;
   display: none;
 
@@ -37,11 +39,12 @@
   min-width: 260px;
   background: linear-gradient(
     to bottom,
-    #1a1412,
-    #201a16 40%,
-    #1a1412
+    rgba(16, 12, 9, 0.92),
+    rgba(24, 18, 14, 0.9) 40%,
+    rgba(16, 12, 9, 0.92)
   );
-  border-right: 1px solid #2a221d;
+  backdrop-filter: blur(8px);
+  border-right: 1px solid var(--iron-dark);
   display: flex;
   flex-direction: column;
   padding: 0;
@@ -214,7 +217,12 @@
 .main-column {
   flex: 1;
   min-width: 0; /* Prevent flex overflow */
-  background: #1c1815;
+  background: linear-gradient(
+    to bottom,
+    rgba(20, 15, 12, 0.55),
+    rgba(14, 11, 8, 0.6)
+  );
+  backdrop-filter: blur(3px);
   display: flex;
   flex-direction: column;
   position: relative;
@@ -227,14 +235,15 @@
     z-index: 1;
     background: linear-gradient(
       to right,
-      #0d0b09,
-      #1c1612 20%,
-      #221c18 50%,
-      #1c1612 80%,
-      #0d0b09
+      rgba(10, 8, 6, 0.85),
+      rgba(26, 20, 15, 0.8) 20%,
+      rgba(32, 25, 20, 0.8) 50%,
+      rgba(26, 20, 15, 0.8) 80%,
+      rgba(10, 8, 6, 0.85)
     );
+    backdrop-filter: blur(6px);
     padding: 0;
-    border-bottom: 2px solid #2a221d;
+    border-bottom: 2px solid var(--iron-dark);
     display: flex;
     align-items: stretch;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.7);
@@ -250,17 +259,18 @@
       background: linear-gradient(
         to right,
         transparent,
-        #d4af37 20%,
-        #d4af37 80%,
+        var(--gold) 20%,
+        var(--gold) 80%,
         transparent
       );
+      box-shadow: var(--gold-glow-sm);
     }
 
     .hamburger-btn-wrapper {
       display: flex;
       align-items: center;
       padding: 0 1.25rem;
-      border-right: 1px solid #2a221d;
+      border-right: 1px solid var(--iron-dark);
     }
 
     .header-center {
@@ -283,22 +293,23 @@
           flex: 1;
           max-width: 120px;
           height: 1px;
-          background: linear-gradient(to right, transparent, #d4af3788);
-          &.right { background: linear-gradient(to left, transparent, #d4af3788); }
+          background: linear-gradient(to right, transparent, var(--gold-dim));
+          &.right { background: linear-gradient(to left, transparent, var(--gold-dim)); }
         }
 
         .ornament-diamond {
           width: 6px;
           height: 6px;
-          background: #d4af37;
+          background: var(--gold);
           transform: rotate(45deg);
+          box-shadow: var(--gold-glow-sm);
         }
       }
 
       .parchment-header {
         font-family: 'Cinzel', serif;
         font-size: 1.6rem;
-        color: #d4af37;
+        color: var(--gold);
         text-transform: uppercase;
         letter-spacing: 8px;
         margin: 0;
@@ -320,7 +331,7 @@
 
     .header-spacer {
       width: 80px;
-      border-left: 1px solid #2a221d;
+      border-left: 1px solid var(--iron-dark);
     }
   }
 
@@ -328,7 +339,7 @@
     flex: 1;
     padding: 1.5rem;
     overflow-y: auto;
-    background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.5' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100' height='100' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+    background: transparent;
   }
 }
 

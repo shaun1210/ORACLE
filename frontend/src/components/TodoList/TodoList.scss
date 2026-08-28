@@ -2,11 +2,13 @@
    TASKS FOR TODAY — GOT Campaign Scroll
    ============================================= */
 
+@use '../../styles/textures' as *;
+
 .todo-container {
   max-width: 820px;
   margin: 0 auto;
   padding: 2rem 2rem;
-  background: url("/assets/parchment_bg.jpg") center/cover no-repeat;
+  @include parchment-texture;
   border-radius: 6px;
   min-height: 80vh;
   box-shadow:
@@ -205,3 +207,4 @@
     }
   }
 }
+
