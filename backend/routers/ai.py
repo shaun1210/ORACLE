@@ -1,19 +1,69 @@
 import os
 import json
-from fastapi import APIRouter
+from fastapi import APIRouter, Depends
+from sqlalchemy.ext.asyncio import AsyncSession
 from google import genai
-from models import ChatMessage
-from utils.database import load_data
+from schemas import ChatMessage
+
+from database import get_db
+from repositories import (
+    ScheduleRepository, TodoRepository, HabitRepository,
+    TreasuryRepository, CampaignRepository, RavenRepository
+)
 
 router = APIRouter(tags=["AI"])
 
+
+async def get_realm_data(db: AsyncSession = Depends(get_db)):
+    """Fetch all realm data for AI analysis."""
+    schedule_repo = ScheduleRepository(db)
+    todo_repo = TodoRepository(db)
+    habit_repo = HabitRepository(db)
+    treasury_repo = TreasuryRepository(db)
+    campaign_repo = CampaignRepository(db)
+    raven_repo = RavenRepository(db)
+    
+    schedule = await schedule_repo.get_all()
+    todos = await todo_repo.get_all()
+    habits = await habit_repo.get_all()
+    treasury = await treasury_repo.get_all()
+    campaigns = await campaign_repo.get_all()
+    ravens = await raven_repo.get_all()
+    
+    import json as json_lib
+    def habit_to_dict(h):
+        return {
+            "id": h.id,
+            "title": h.title,
+            "streak": h.streak,
+            "completed_days": json_lib.loads(h.completed_days) if h.completed_days else []
+        }
+    
+    def campaign_to_dict(c):
+        return {
+            "id": c.id,
+            "title": c.title,
+            "progress": c.progress,
+            "subtasks": [{"id": s.id, "title": s.title, "completed": s.completed} for s in c.subtasks]
+        }
+    
+    return {
+        "schedule": [{"id": s.id, "title": s.title, "date": s.date, "time": s.time, "duration": s.duration, "is_busy": s.is_busy} for s in schedule],
+        "todos": [{"id": t.id, "title": t.title, "completed": t.completed} for t in todos],
+        "habits": [habit_to_dict(h) for h in habits],
+        "treasury": [{"id": tr.id, "title": tr.title, "amount": tr.amount, "type": tr.type, "is_recurring": tr.is_recurring} for tr in treasury],
+        "campaigns": [campaign_to_dict(c) for c in campaigns],
+        "ravens": [{"id": r.id, "message": r.message, "dispatch_time": r.dispatch_time} for r in ravens],
+    }
+
+
 @router.get("/analyze")
-def analyze_schedule():
+async def analyze_schedule(db: AsyncSession = Depends(get_db)):
     api_key = os.getenv("GEMINI_API_KEY")
     if not api_key:
         return {"suggestion": "Please set GEMINI_API_KEY in backend/.env to get AI suggestions.", "status": "warning"}
     
-    data = load_data()
+    data = await get_realm_data(db)
     schedule_str = json.dumps(data["schedule"], indent=2)
     
     client = genai.Client(api_key=api_key)
@@ -42,13 +92,14 @@ def analyze_schedule():
     except Exception as e:
         return {"suggestion": f"Error analyzing schedule: {str(e)}", "status": "error"}
 
+
 @router.get("/archive-report")
-def generate_archive_report():
+async def generate_archive_report(db: AsyncSession = Depends(get_db)):
     api_key = os.getenv("GEMINI_API_KEY")
     if not api_key:
         return {"report": "The royal archives are sealed. Set GEMINI_API_KEY in backend/.env.", "status": "warning"}
     
-    data = load_data()
+    data = await get_realm_data(db)
     all_data_str = json.dumps(data, indent=2)
     
     client = genai.Client(api_key=api_key)
@@ -78,13 +129,14 @@ def generate_archive_report():
     except Exception as e:
         return {"report": f"The raven was shot down. Error: {str(e)}", "status": "error"}
 
+
 @router.post("/chat")
-def chat_with_maester(msg: ChatMessage):
+async def chat_with_maester(msg: ChatMessage, db: AsyncSession = Depends(get_db)):
     api_key = os.getenv("GEMINI_API_KEY")
     if not api_key:
         return {"reply": "The Maester is unavailable. Set GEMINI_API_KEY in backend/.env.", "status": "warning"}
     
-    data = load_data()
+    data = await get_realm_data(db)
     realm_context = json.dumps(data, indent=2)
     
     system_prompt = (

@@ -1,12 +1,26 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from dotenv import load_dotenv
+from contextlib import asynccontextmanager
 
 from routers import schedule, todos, habits, treasury, campaigns, ravens, ai
+from database import init_db
 
 load_dotenv()
 
-app = FastAPI(title="ORACLE API", description="Backend for ORACLE: The Medieval Monarchy Planner")
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    # Startup
+    await init_db()
+    yield
+    # Shutdown
+    pass
+
+app = FastAPI(
+    title="ORACLE API", 
+    description="Backend for ORACLE: The Medieval Monarchy Planner",
+    lifespan=lifespan
+)
 
 app.add_middleware(
     CORSMiddleware,
