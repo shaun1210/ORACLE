@@ -1,10 +1,10 @@
 /* =============================================
-   REALM BACKGROUND — Immersive Atmospheric System
-   Pure CSS, no external images needed
-   Medieval throne room / great hall atmosphere
+   REALM BACKGROUND — Premium Atmospheric System
+   Rich warm leather tones, fog, light rays,
+   floating particles, and deep vignette
    ============================================= */
 
-.realm-background {
+.realm-bg {
   position: fixed;
   inset: 0;
   z-index: -1;
@@ -14,183 +14,194 @@
 }
 
 /* =============================================
-   BASE LAYER - Deep aged parchment/stone tones
+   BASE — Rich warm leather gradient
    ============================================= */
-.bg-layer.base {
+.rb-base {
   position: absolute;
   inset: 0;
-  background: 
-    /* Deep radial gradient - throne room depth */
-    radial-gradient(
-      ellipse 120% 100% at 50% 100%,
-      #1a1410 0%,
-      #0f0c09 40%,
-      #080706 70%,
-      #030303 100%
-    ),
-    /* Subtle warm undertone */
-    linear-gradient(
-      180deg,
-      #15100d 0%,
-      #120d0a 50%,
-      #0d0907 100%
-    );
+  background:
+    /* Central warm glow */
+    radial-gradient(ellipse 100% 80% at 50% 100%, rgba(80, 50, 20, 0.2) 0%, transparent 55%),
+    /* Top ambient warmth */
+    radial-gradient(ellipse 60% 40% at 50% 0%, rgba(60, 35, 15, 0.12) 0%, transparent 50%),
+    /* Left edge warmth */
+    radial-gradient(ellipse 30% 50% at 0% 50%, rgba(50, 30, 10, 0.1) 0%, transparent 50%),
+    /* Right edge warmth */
+    radial-gradient(ellipse 30% 50% at 100% 50%, rgba(50, 30, 10, 0.1) 0%, transparent 50%),
+    /* Deep base */
+    linear-gradient(180deg, #0e0a07 0%, #0a0705 50%, #0d0906 100%);
 }
 
 /* =============================================
-   MIST LAYERS - Atmospheric fog with subtle movement
+   THRONE GLOW — Warm radial light from below
    ============================================= */
-.bg-layer.mist {
+.rb-throne-glow {
   position: absolute;
-  inset: -20%;
-  background-image: 
-    radial-gradient(ellipse at 20% 30%, rgba(212, 175, 55, 0.025) 0%, transparent 50%),
-    radial-gradient(ellipse at 80% 70%, rgba(139, 90, 26, 0.02) 0%, transparent 55%),
-    radial-gradient(ellipse at 50% 50%, rgba(100, 80, 40, 0.015) 0%, transparent 60%),
-    radial-gradient(ellipse at 10% 80%, rgba(180, 140, 60, 0.02) 0%, transparent 45%);
-  opacity: 0.6;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 80% 50% at 50% 105%, rgba(140, 90, 30, 0.12) 0%, transparent 50%),
+    radial-gradient(ellipse 50% 30% at 50% 100%, rgba(180, 120, 40, 0.08) 0%, transparent 40%);
+  animation: throneGlow 12s ease-in-out infinite;
 }
 
-.mist-1 {
-  animation: mistDrift 40s ease-in-out infinite;
-  transform-origin: center;
-}
-
-.mist-2 {
-  animation: mistDrift 55s ease-in-out infinite reverse;
-  transform-origin: center;
-  opacity: 0.4;
-  filter: blur(2px);
-}
-
-.mist-3 {
-  animation: mistDrift 70s ease-in-out infinite;
-  transform-origin: center;
-  opacity: 0.3;
-  filter: blur(4px);
-}
-
-@keyframes mistDrift {
-  0%, 100% { 
-    transform: translate(0, 0) scale(1) rotate(0deg); 
-  }
-  25% { 
-    transform: translate(-3%, 2%) scale(1.02) rotate(0.5deg); 
-  }
-  50% { 
-    transform: translate(2%, -1%) scale(0.98) rotate(-0.3deg); 
-  }
-  75% { 
-    transform: translate(-1%, -3%) scale(1.01) rotate(0.2deg); 
-  }
+@keyframes throneGlow {
+  0%, 100% { opacity: 0.7; }
+  50% { opacity: 1; }
 }
 
 /* =============================================
-   EMBERS - Floating warm particles
+   FOG — Slow drifting atmospheric layers
    ============================================= */
-.bg-layer.embers {
+.rb-fog {
+  position: absolute;
+  inset: -30%;
+  opacity: 0.5;
+}
+
+.rb-fog-1 {
+  background:
+    radial-gradient(ellipse 40% 30% at 20% 40%, rgba(100, 70, 30, 0.06) 0%, transparent 60%),
+    radial-gradient(ellipse 35% 25% at 80% 60%, rgba(80, 55, 20, 0.05) 0%, transparent 55%);
+  animation: fogDrift 45s ease-in-out infinite;
+}
+
+.rb-fog-2 {
+  background:
+    radial-gradient(ellipse 45% 35% at 60% 30%, rgba(120, 80, 35, 0.05) 0%, transparent 55%),
+    radial-gradient(ellipse 30% 20% at 30% 70%, rgba(90, 60, 25, 0.04) 0%, transparent 50%);
+  animation: fogDrift 60s ease-in-out infinite reverse;
+  opacity: 0.4;
+  filter: blur(3px);
+}
+
+.rb-fog-3 {
+  background:
+    radial-gradient(ellipse 50% 40% at 40% 50%, rgba(70, 45, 15, 0.04) 0%, transparent 50%),
+    radial-gradient(ellipse 35% 25% at 70% 40%, rgba(60, 40, 15, 0.03) 0%, transparent 50%);
+  animation: fogDrift 75s ease-in-out infinite;
+  opacity: 0.3;
+  filter: blur(6px);
+}
+
+@keyframes fogDrift {
+  0%, 100% { transform: translate(0, 0) scale(1) rotate(0deg); }
+  25% { transform: translate(-2%, 1%) scale(1.01) rotate(0.3deg); }
+  50% { transform: translate(1.5%, -0.5%) scale(0.99) rotate(-0.2deg); }
+  75% { transform: translate(-0.5%, -2%) scale(1.005) rotate(0.15deg); }
+}
+
+/* =============================================
+   LIGHT RAYS — Diagonal golden beams
+   ============================================= */
+.rb-rays {
+  position: absolute;
+  inset: 0;
+  background:
+    /* Main beam from top-left */
+    linear-gradient(135deg, rgba(180, 130, 50, 0.03) 0%, transparent 40%),
+    /* Secondary beam from top-right */
+    linear-gradient(225deg, rgba(160, 110, 40, 0.02) 0%, transparent 35%);
+  animation: rayPulse 20s ease-in-out infinite;
+}
+
+@keyframes rayPulse {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
+}
+
+/* =============================================
+   PARTICLES — Floating ember/firefly dots
+   ============================================= */
+.rb-particles {
   position: absolute;
   inset: 0;
   overflow: hidden;
 }
 
-.ember {
+.particle {
   position: absolute;
-  width: 2px;
-  height: 2px;
+  bottom: -10px;
   border-radius: 50%;
-  background: radial-gradient(circle, #ffd700 0%, #d4a82b 40%, #8b4513 100%);
-  box-shadow: 
-    0 0 4px 1px rgba(212, 175, 55, 0.6),
-    0 0 8px 2px rgba(139, 69, 19, 0.4);
+  background: radial-gradient(circle, #ffd780 0%, #d4a830 40%, #8b5a18 100%);
+  box-shadow:
+    0 0 3px 1px rgba(212, 176, 88, 0.5),
+    0 0 6px 2px rgba(139, 90, 24, 0.3);
   opacity: 0;
-  animation: emberFloat var(--duration, 20s) ease-in-out infinite;
-  animation-delay: var(--delay, 0s);
+  animation: particleFloat var(--duration, 18s) ease-in-out infinite;
 }
 
-@keyframes emberFloat {
-  0% {
-    opacity: 0;
-    transform: translateY(100vh) scale(0.5);
-  }
-  10% {
-    opacity: 0.6;
-  }
-  50% {
-    opacity: 1;
-    transform: translateY(40vh) translateX(var(--x-drift, 0)) scale(1);
-  }
-  90% {
-    opacity: 0.4;
-  }
-  100% {
-    opacity: 0;
-    transform: translateY(-20vh) translateX(var(--x-drift, 0)) scale(0.3);
-  }
+@keyframes particleFloat {
+  0% { opacity: 0; transform: translateY(0) scale(0.5); }
+  8% { opacity: 0.7; }
+  50% { opacity: 0.9; transform: translateY(-50vh) translateX(var(--drift, 0)) scale(1); }
+  92% { opacity: 0.4; }
+  100% { opacity: 0; transform: translateY(-100vh) translateX(var(--drift, 0)) scale(0.3); }
 }
 
-/* Randomize ember horizontal drift */
-.ember:nth-child(3n) { --x-drift: -5vw; }
-.ember:nth-child(3n+1) { --x-drift: 5vw; }
-.ember:nth-child(3n+2) { --x-drift: 0; }
+.particle:nth-child(3n) { --drift: -3vw; }
+.particle:nth-child(3n+1) { --drift: 4vw; }
+.particle:nth-child(3n+2) { --drift: -1vw; }
 
 /* =============================================
-   VIGNETTE - Darkened edges for focus
+   DUST — Tiny floating ambient specs
    ============================================= */
-.bg-layer.vignette {
+.rb-dust {
+  position: absolute;
+  inset: 0;
+}
+
+.dust {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  border-radius: 50%;
+  background: rgba(201, 168, 76, 0.4);
+  box-shadow: 0 0 2px rgba(201, 168, 76, 0.3);
+  opacity: 0;
+  animation: dustFloat var(--dur, 25s) ease-in-out infinite;
+}
+
+@keyframes dustFloat {
+  0%, 100% { opacity: 0; transform: translate(0, 0); }
+  20% { opacity: 0.5; }
+  50% { opacity: 0.3; transform: translate(var(--dx, 10px), var(--dy, -20px)); }
+  80% { opacity: 0.4; }
+}
+
+.dust:nth-child(odd) { --dx: -15px; --dy: 12px; }
+.dust:nth-child(even) { --dx: 8px; --dy: -18px; }
+.dust:nth-child(3n) { --dx: -6px; --dy: -10px; }
+
+/* =============================================
+   VIGNETTE — Darkened edges
+   ============================================= */
+.rb-vignette {
   position: absolute;
   inset: 0;
   background: radial-gradient(
-    ellipse 150% 120% at 50% 50%,
-    transparent 40%,
-    rgba(0, 0, 0, 0.15) 65%,
-    rgba(0, 0, 0, 0.35) 85%,
-    rgba(0, 0, 0, 0.6) 100%
+    ellipse 130% 110% at 50% 50%,
+    transparent 35%,
+    rgba(0, 0, 0, 0.12) 55%,
+    rgba(0, 0, 0, 0.3) 75%,
+    rgba(0, 0, 0, 0.55) 100%
   );
-  pointer-events: none;
 }
 
 /* =============================================
-   TEXTURE - Subtle paper/stone grain
+   GRAIN — Subtle texture overlay
    ============================================= */
-.bg-layer.texture {
+.rb-grain {
   position: absolute;
   inset: 0;
-  opacity: 0.04;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='512' height='512' filter='url(%23noise)'/%3E%3C/svg%3E");
-  background-size: 256px;
-  animation: textureShift 120s linear infinite;
-}
-
-@keyframes textureShift {
-  0% { background-position: 0 0; }
-  100% { background-position: 512px 512px; }
+  opacity: 0.025;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='256' height='256' filter='url(%23g)'/%3E%3C/svg%3E");
+  background-size: 200px;
 }
 
 /* =============================================
-   THRONE GLOW - Central warm radial glow
+   CORNER ORNAMENTS — Subtle heraldic knots
    ============================================= */
-.bg-layer.throne-glow {
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(
-    ellipse 200% 150% at 50% 80%,
-    rgba(212, 175, 55, 0.03) 0%,
-    rgba(180, 140, 50, 0.015) 30%,
-    transparent 60%
-  );
-  animation: thronePulse 20s ease-in-out infinite;
-}
-
-@keyframes thronePulse {
-  0%, 100% { opacity: 0.5; }
-  50% { opacity: 1; }
-}
-
-/* =============================================
-   CORNER HERALDIC ACCENTS
-   ============================================= */
-.corner-accents {
+.rb-corners {
   position: absolute;
   inset: 0;
   pointer-events: none;
@@ -198,55 +209,33 @@
 
 .corner {
   position: absolute;
-  width: 180px;
-  height: 180px;
-  opacity: 0.08;
-  transition: opacity 0.5s ease;
+  width: 140px;
+  height: 140px;
+  opacity: 0.06;
+  transition: opacity 0.6s ease;
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 140 140' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='70' cy='70' r='50' fill='none' stroke='%23c9a84c' stroke-width='1'/%3E%3Ccircle cx='70' cy='70' r='30' fill='none' stroke='%23c9a84c' stroke-width='0.5'/%3E%3Ccircle cx='70' cy='70' r='6' fill='%23c9a84c' opacity='0.6'/%3E%3Cline x1='70' y1='20' x2='70' y2='120' stroke='%23c9a84c' stroke-width='0.5' opacity='0.4'/%3E%3Cline x1='20' y1='70' x2='120' y2='70' stroke='%23c9a84c' stroke-width='0.5' opacity='0.4'/%3E%3Cpath d='M40,40 Q70,40 70,70 Q70,40 100,40' fill='none' stroke='%23c9a84c' stroke-width='0.5' opacity='0.3'/%3E%3Cpath d='M40,40 Q40,70 70,70 Q40,70 40,100' fill='none' stroke='%23c9a84c' stroke-width='0.5' opacity='0.3'/%3E%3C/svg%3E");
+    background-size: contain;
+    background-repeat: no-repeat;
+  }
 }
 
 .corner-tl { top: 0; left: 0; }
-.corner-tr { top: 0; right: 0; transform: rotateY(180deg); }
-.corner-bl { bottom: 0; left: 0; transform: rotateX(180deg); }
-.corner-br { bottom: 0; right: 0; transform: rotate(180deg); }
+.corner-tr { top: 0; right: 0; transform: scaleX(-1); }
+.corner-bl { bottom: 0; left: 0; transform: scaleY(-1); }
+.corner-br { bottom: 0; right: 0; transform: scale(-1); }
 
-.realm-background:hover .corner {
-  opacity: 0.15;
-}
+.realm-bg:hover .corner { opacity: 0.12; }
 
-.heraldic-knot {
-  width: 100%;
-  height: 100%;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M20,90 Q20,20 90,20 Q160,20 160,90 Q160,160 90,160 Q20,160 20,90 M90,20 L90,160 M20,90 L160,90' stroke='%23d4af37' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3Cpath d='M50,50 Q90,50 90,90 Q90,130 50,130 Q10,130 10,90 Q10,50 50,50' stroke='%23d4af37' stroke-width='1' fill='none' opacity='0.6'/%3E%3Ccircle cx='90' cy='90' r='8' fill='%23d4af37' opacity='0.8'/%3E%3C/svg%3E");
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
-  width: 100%;
-  height: 100%;
-}
-
-/* =============================================
-   REDUCED MOTION SUPPORT
-   ============================================= */
+/* Reduced motion */
 @media (prefers-reduced-motion: reduce) {
-  .mist-1, .mist-2, .mist-3,
-  .ember, .throne-glow, .texture {
+  .rb-fog, .particle, .dust, .rb-throne-glow, .rb-rays, .rb-grain {
     animation: none !important;
   }
-  .ember { opacity: 0.1; }
-}
-
-/* =============================================
-   DARK MODE ENHANCEMENT (already dark)
-   ============================================= */
-@media (prefers-color-scheme: dark) {
-  .bg-layer.base {
-    background: 
-      radial-gradient(
-        ellipse 120% 100% at 50% 100%,
-        #120d0a 0%,
-        #0a0806 40%,
-        #050403 70%,
-        #020202 100%
-      );
-  }
+  .particle { opacity: 0.15; }
+  .dust { opacity: 0.1; }
 }

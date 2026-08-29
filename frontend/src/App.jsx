@@ -7,9 +7,10 @@ import Archive from './components/Archive/Archive';
 import Treasury from './components/Treasury/Treasury';
 import WarRoom from './components/WarRoom/WarRoom';
 import RavenNetwork from './components/RavenNetwork/RavenNetwork';
+import FitnessTracker from './components/FitnessTracker/FitnessTracker';
 import MaesterChatbot from './components/MaesterChatbot/MaesterChatbot';
 import RealmBackground from './components/RealmBackground/RealmBackground';
-import { CalendarDays, CheckSquare, Target, BookOpen, Coins, Map, Bird } from 'lucide-react';
+import { CalendarDays, CheckSquare, Target, BookOpen, Coins, Map, Bird, Flame } from 'lucide-react';
 import api from './api';
 import './App.scss';
 
@@ -63,7 +64,7 @@ function AppContent() {
   }, [ravens, activeToast]);
 
   return (
-    <div className={`app-frame ${isSidebarOpen ? 'sidebar-open' : 'sidebar-closed'}`}>
+    <div className={`app-frame sigil-overlay ${isSidebarOpen ? 'sidebar-open' : 'sidebar-closed'}`}>
 
       {/* Atmospheric Realm Background */}
       <RealmBackground />
@@ -87,7 +88,7 @@ function AppContent() {
       {/* COLUMN 1: SIDEBAR */}
       <aside className={`sidebar-column ${isSidebarOpen ? 'open' : 'closed'}`}>
         <div className="logo-section">
-          <img src="/assets/oracle_emblem.png" alt="ORACLE Emblem" className="oracle-emblem" />
+          <img src="/assets/targaryen_logo.png" alt="ORACLE Emblem" className="oracle-emblem" />
           <div className="logo-text">
             <h1 className="logo-title">ORACLE</h1>
             <span className="logo-subtitle">REALM CHRONICLE</span>
@@ -95,26 +96,45 @@ function AppContent() {
         </div>
         <nav className="nav-menu">
           <Link to="/" className={`nav-slab-link ${location.pathname === '/' ? 'active' : ''}`} onClick={handleNavClick}>
-            <img src="/assets/sidebar_nav/calendar_btn.png?v=2" alt="Calendar" className="nav-slab-img" />
+            <img src="/assets/sidebar_nav/calendar_btn.png" alt="Calendar" className="nav-slab-img" />
+            <span className="bloom-spot bloom-1"></span>
+            <span className="bloom-spot bloom-2"></span>
           </Link>
           <Link to="/todos" className={`nav-slab-link ${location.pathname === '/todos' ? 'active' : ''}`} onClick={handleNavClick}>
             <img src="/assets/sidebar_nav/campaigns_btn.png?v=2" alt="Current Campaigns" className="nav-slab-img" />
+            <span className="bloom-spot bloom-1"></span>
+            <span className="bloom-spot bloom-2"></span>
           </Link>
           <Link to="/habits" className={`nav-slab-link ${location.pathname === '/habits' ? 'active' : ''}`} onClick={handleNavClick}>
             <img src="/assets/sidebar_nav/alliances_btn.png?v=2" alt="Alliances" className="nav-slab-img" />
+            <span className="bloom-spot bloom-1"></span>
+            <span className="bloom-spot bloom-2"></span>
           </Link>
           <Link to="/archive" className={`nav-slab-link ${location.pathname === '/archive' ? 'active' : ''}`} onClick={handleNavClick}>
             <img src="/assets/sidebar_nav/archive_btn.png?v=2" alt="The Archive" className="nav-slab-img" />
+            <span className="bloom-spot bloom-1"></span>
+            <span className="bloom-spot bloom-2"></span>
           </Link>
           <div className="nav-divider"></div>
           <Link to="/treasury" className={`nav-slab-link ${location.pathname === '/treasury' ? 'active' : ''}`} onClick={handleNavClick}>
             <img src="/assets/sidebar_nav/treasury_btn.png?v=2" alt="Royal Treasury" className="nav-slab-img" />
+            <span className="bloom-spot bloom-1"></span>
+            <span className="bloom-spot bloom-2"></span>
           </Link>
           <Link to="/war-room" className={`nav-slab-link ${location.pathname === '/war-room' ? 'active' : ''}`} onClick={handleNavClick}>
             <img src="/assets/sidebar_nav/war_room_btn.png?v=2" alt="The War Room" className="nav-slab-img" />
+            <span className="bloom-spot bloom-1"></span>
+            <span className="bloom-spot bloom-2"></span>
           </Link>
           <Link to="/ravens" className={`nav-slab-link ${location.pathname === '/ravens' ? 'active' : ''}`} onClick={handleNavClick}>
             <img src="/assets/sidebar_nav/ravens_btn.png?v=2" alt="Raven Network" className="nav-slab-img" />
+            <span className="bloom-spot bloom-1"></span>
+            <span className="bloom-spot bloom-2"></span>
+          </Link>
+          <Link to="/fitness" className={`nav-slab-link ${location.pathname === '/fitness' ? 'active' : ''}`} onClick={handleNavClick}>
+            <img src="/assets/sidebar_nav/fitness_btn.svg" alt="The Royal Feast" className="nav-slab-img" />
+            <span className="bloom-spot bloom-1"></span>
+            <span className="bloom-spot bloom-2"></span>
           </Link>
         </nav>
         <div className="sidebar-decorations">
@@ -159,6 +179,7 @@ function AppContent() {
             <Route path="/treasury" element={<Treasury />} />
             <Route path="/war-room" element={<WarRoom />} />
             <Route path="/ravens" element={<RavenNetwork />} />
+            <Route path="/fitness" element={<FitnessTracker />} />
           </Routes>
         </div>
         {!isChatOpen && (

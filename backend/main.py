@@ -3,7 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from dotenv import load_dotenv
 from contextlib import asynccontextmanager
 
-from routers import schedule, todos, habits, treasury, campaigns, ravens, ai
+from routers import schedule, todos, habits, treasury, campaigns, ravens, ai, fitness
 from database import init_db
 
 load_dotenv()
@@ -42,6 +42,7 @@ app.include_router(treasury.router)
 app.include_router(campaigns.router)
 app.include_router(ravens.router)
 app.include_router(ai.router)
+app.include_router(fitness.router)
 
 if __name__ == "__main__":
     import uvicorn

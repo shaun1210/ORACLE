@@ -5,7 +5,8 @@ import json
 
 from models import (
     ScheduleItem, TodoItem, HabitItem, TreasuryItem,
-    CampaignItem, CampaignSubtask, RavenItem
+    CampaignItem, CampaignSubtask, RavenItem,
+    FoodEntry, FitnessGoal
 )
 
 
@@ -187,3 +188,51 @@ class RavenRepository:
         )
         await self.session.commit()
         return result.rowcount > 0
+
+
+class FoodEntryRepository:
+    def __init__(self, session: AsyncSession):
+        self.session = session
+
+    async def get_all(self) -> List[FoodEntry]:
+        result = await self.session.execute(select(FoodEntry))
+        return result.scalars().all()
+
+    async def get_by_date(self, date: str) -> List[FoodEntry]:
+        result = await self.session.execute(
+            select(FoodEntry).where(FoodEntry.date == date)
+        )
+        return result.scalars().all()
+
+    async def create(self, item: FoodEntry) -> FoodEntry:
+        self.session.add(item)
+        await self.session.commit()
+        await self.session.refresh(item)
+        return item
+
+    async def delete(self, item_id: str) -> bool:
+        result = await self.session.execute(
+            delete(FoodEntry).where(FoodEntry.id == item_id)
+        )
+        await self.session.commit()
+        return result.rowcount > 0
+
+
+class FitnessGoalRepository:
+    def __init__(self, session: AsyncSession):
+        self.session = session
+
+    async def get_current(self) -> Optional[FitnessGoal]:
+        result = await self.session.execute(select(FitnessGoal).order_by(FitnessGoal.created_at.desc()))
+        return result.scalars().first()
+
+    async def create(self, item: FitnessGoal) -> FitnessGoal:
+        self.session.add(item)
+        await self.session.commit()
+        await self.session.refresh(item)
+        return item
+
+    async def update(self, item: FitnessGoal) -> FitnessGoal:
+        await self.session.commit()
+        await self.session.refresh(item)
+        return item

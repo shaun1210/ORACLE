@@ -1,0 +1,26 @@
+<svg width="220" height="70" viewBox="0 0 220 70" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#3a2816"/>
+      <stop offset="50%" stop-color="#2a1c10"/>
+      <stop offset="100%" stop-color="#1a1208"/>
+    </linearGradient>
+    <linearGradient id="gold" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#c9a84c"/>
+      <stop offset="50%" stop-color="#a07830"/>
+      <stop offset="100%" stop-color="#c9a84c"/>
+    </linearGradient>
+  </defs>
+  <rect width="220" height="70" rx="4" fill="url(#bg)" stroke="#5c4020" stroke-width="1.5"/>
+  <rect x="4" y="4" width="212" height="62" rx="2" fill="none" stroke="#3a2816" stroke-width="0.5"/>
+  <!-- Flame icon -->
+  <g transform="translate(18, 15)" fill="url(#gold)" opacity="0.85">
+    <path d="M12,0 C8,6 2,10 2,18 C2,24 6,30 12,32 C18,30 22,24 22,18 C22,10 16,6 12,0 Z M12,8 C10,12 6,16 6,20 C6,24 8,28 12,28 C16,28 18,24 18,20 C18,16 14,12 12,8 Z"/>
+    <circle cx="12" cy="20" r="3" fill="#1a1208"/>
+  </g>
+  <!-- Text -->
+  <text x="55" y="30" font-family="Cinzel, serif" font-size="13" font-weight="700" fill="#c9a84c" letter-spacing="2">THE ROYAL</text>
+  <text x="55" y="48" font-family="Cinzel, serif" font-size="13" font-weight="700" fill="#c9a84c" letter-spacing="2">FEAST</text>
+  <!-- Subtle gold line -->
+  <line x1="55" y1="55" x2="195" y2="55" stroke="#3a2816" stroke-width="0.5"/>
+</svg>

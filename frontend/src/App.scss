@@ -4,15 +4,20 @@
    shows through translucent panels
    ============================================= */
 
-/* Root fills the entire viewport scaled to 80% proportion */
+/* Root fills the entire viewport */
 .app-frame {
-  width: 125vw;
-  height: 125vh;
-  zoom: 0.8;
+  width: 100vw;
+  height: 100vh;
   display: flex;
   overflow: hidden;
   background: transparent;
   position: relative;
+}
+
+/* Sigil watermark overlay (subtle background) */
+.app-frame > .sigil-overlay {
+  opacity: 0.06;
+  pointer-events: none;
 }
 
 /* =============================================
@@ -35,16 +40,20 @@
    COLUMN 1: SIDEBAR
    ============================================= */
 .sidebar-column {
-  width: 260px;
-  min-width: 260px;
-  background: linear-gradient(
-    to bottom,
-    rgba(16, 12, 9, 0.92),
-    rgba(24, 18, 14, 0.9) 40%,
-    rgba(16, 12, 9, 0.92)
-  );
-  backdrop-filter: blur(8px);
-  border-right: 1px solid var(--iron-dark);
+  width: 180px;
+  min-width: 180px;
+  background:
+    /* Subtle grain */
+    url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23g)' opacity='0.03'/%3E%3C/svg%3E"),
+    linear-gradient(
+      to bottom,
+      rgba(18, 14, 10, 0.98),
+      rgba(26, 20, 14, 0.97) 40%,
+      rgba(18, 14, 10, 0.98)
+    );
+  background-size: 200px 200px, 100% 100%;
+  backdrop-filter: blur(12px);
+  border-right: 1px solid rgba(212, 176, 88, 0.08);
   display: flex;
   flex-direction: column;
   padding: 0;
@@ -62,7 +71,7 @@
     position: absolute;
     top: 0; right: -1px;
     width: 1px; height: 100%;
-    background: linear-gradient(to bottom, transparent, #d4af3740, #d4af3760, #d4af3740, transparent);
+    background: linear-gradient(to bottom, transparent, #b8860b40, #b8860b60, #b8860b40, transparent);
     pointer-events: none;
   }
 
@@ -81,13 +90,11 @@
     z-index: 60;
 
     &.closed { transform: translateX(-110%); }
-  }
-
-  .logo-section {
+  }    .logo-section {
     display: flex;
     align-items: center;
-    gap: 0.85rem;
-    padding: 1.1rem 1.25rem;
+    gap: 0.6rem;
+    padding: 0.7rem 0.8rem;
     border-bottom: 1px solid #2a221d;
     background: linear-gradient(to right, #0d0b09, #181310, #0d0b09);
     position: relative;
@@ -98,14 +105,14 @@
       position: absolute;
       bottom: 0; left: 10%; right: 10%;
       height: 1px;
-      background: linear-gradient(to right, transparent, #d4af3770, transparent);
+      background: linear-gradient(to right, transparent, #b8860b70, transparent);
     }
 
     .oracle-emblem {
-      width: 50px;
-      height: 50px;
+      width: 40px;
+      height: 40px;
       border-radius: 50%;
-      border: 2px solid #d4af37;
+      border: 2px solid #b8860b;
       box-shadow:
         0 0 10px rgba(212, 175, 55, 0.35),
         0 2px 8px rgba(0, 0, 0, 0.8);
@@ -126,11 +133,11 @@
       gap: 0.1rem;
 
       .logo-title {
-        font-size: 1.55rem;
+        font-size: 1.15rem;
         letter-spacing: 4px;
         font-family: 'Cinzel', serif;
         font-weight: 700;
-        color: #d4af37;
+        color: #b8860b;
         text-shadow:
           0 0 12px rgba(212, 175, 55, 0.4),
           0 2px 4px rgba(0, 0, 0, 0.9);
@@ -148,66 +155,141 @@
         margin: 0;
       }
     }
-  }
-
-  .nav-menu {
+  }    .nav-menu {
     display: flex;
     flex-direction: column;
     flex: 1;
     overflow-y: auto;
-    padding: 0.75rem 0.85rem;
-    gap: 0.65rem;
+    padding: 0.4rem 0.5rem;
+    gap: 0.35rem;
 
     .nav-divider {
       height: 1px;
       background: linear-gradient(to right, transparent, #3a3028, transparent);
       margin: 0.2rem 0.5rem;
-    }
-
-    .nav-slab-link {
+    }      .nav-slab-link {
       display: block;
       width: 100%;
       text-decoration: none;
-      border-radius: 4px;
+      border-radius: 3px;
       overflow: hidden;
-      transition: all 0.25s ease;
+      transition: all 0.25s cubic-bezier(0.22, 1, 0.36, 1);
       position: relative;
-      border: 2px solid transparent;
+      border: 1.5px solid transparent;
 
       .nav-slab-img {
         width: 100%;
         height: auto;
         display: block;
-        border-radius: 3px;
-        filter: brightness(0.95) contrast(1.05);
-        transition: all 0.25s ease;
+        border-radius: 2px;
+        filter: brightness(0.92) contrast(1.05);
+        transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+      }
+
+      /* Bloom shine overlay — adapted from Uiverse.io by Smit-Prajapati */
+      &::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 60%;
+        height: 100%;
+        background: linear-gradient(
+          90deg,
+          rgba(255, 255, 255, 0) 0%,
+          rgba(255, 255, 255, 0.08) 40%,
+          rgba(255, 255, 255, 0.2) 50%,
+          rgba(255, 255, 255, 0.08) 60%,
+          rgba(255, 255, 255, 0) 100%
+        );
+        transform: skewX(-20deg);
+        transition: left 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+        pointer-events: none;
+        z-index: 5;
+      }
+
+      /* Bloom light spots */
+      .bloom-spot {
+        position: absolute;
+        width: 2px;
+        height: 2px;
+        border-radius: 50%;
+        opacity: 0;
+        transition: opacity 0.4s ease;
+        pointer-events: none;
+        z-index: 4;
+      }
+      .bloom-1 {
+        top: 6px;
+        right: 8px;
+        box-shadow:
+          rgba(255, 255, 255, 0) 0px 0px 6px 3px,
+          rgba(255, 255, 255, 0) 0px 0px 12px 6px;
+      }
+      .bloom-2 {
+        bottom: 6px;
+        left: 12px;
+        box-shadow:
+          rgba(255, 255, 255, 0) 0px 0px 6px 3px,
+          rgba(255, 255, 255, 0) 0px 0px 12px 6px;
       }
 
       &:hover {
-        transform: scale(1.03);
-        border-color: #d4af37;
+        transform: scale(1.04);
+        border-color: var(--gold);
         box-shadow:
-          0 0 14px rgba(212, 175, 55, 0.45),
+          0 0 14px var(--gold-glow-md),
           0 4px 10px rgba(0, 0, 0, 0.6);
 
         .nav-slab-img {
           filter: brightness(1.1) contrast(1.1);
         }
+
+        /* Shine sweep */
+        &::after {
+          left: 120%;
+        }
+
+        /* Bloom spots light up */
+        .bloom-1 {
+          opacity: 1;
+          box-shadow:
+            rgba(255, 255, 255, 0.6) 0px 0px 6px 3px,
+            rgba(255, 255, 255, 0.3) 0px 0px 12px 6px;
+        }
+        .bloom-2 {
+          opacity: 0.7;
+          box-shadow:
+            rgba(255, 255, 255, 0.4) 0px 0px 6px 3px,
+            rgba(255, 255, 255, 0.2) 0px 0px 12px 6px;
+        }
+      }
+
+      &:active {
+        transform: scale(0.97);
       }
 
       &.active {
-        transform: scale(1.03);
-        border: 2px solid #ff7700;
+        transform: scale(1.04);
+        border: 2px solid var(--gold);
         border-radius: 4px;
         box-shadow:
-          0 0 20px rgba(255, 119, 0, 0.65),
+          0 0 20px rgba(255, 119, 0, 0.55),
           0 4px 12px rgba(0, 0, 0, 0.8);
 
         .nav-slab-img {
-          filter: brightness(1.15) contrast(1.15) drop-shadow(0 0 10px rgba(255, 119, 0, 0.7));
+          filter: brightness(1.15) contrast(1.15) drop-shadow(0 0 10px rgba(255, 119, 0, 0.6));
         }
       }
     }
+  }
+
+  .sidebar-decorations {
+    padding: 1rem;
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    opacity: 0.15;
   }
 }
 
@@ -216,13 +298,16 @@
    ============================================= */
 .main-column {
   flex: 1;
-  min-width: 0; /* Prevent flex overflow */
-  background: linear-gradient(
-    to bottom,
-    rgba(20, 15, 12, 0.55),
-    rgba(14, 11, 8, 0.6)
-  );
-  backdrop-filter: blur(3px);
+  min-width: 0;
+  background:
+    /* Warm central glow */
+    radial-gradient(ellipse 80% 60% at 50% 30%, rgba(60, 40, 18, 0.08) 0%, transparent 60%),
+    linear-gradient(
+      to bottom,
+      rgba(16, 12, 8, 0.4),
+      rgba(12, 9, 6, 0.35)
+    );
+  backdrop-filter: blur(4px);
   display: flex;
   flex-direction: column;
   position: relative;
@@ -233,20 +318,23 @@
   .main-header {
     position: relative;
     z-index: 1;
-    background: linear-gradient(
-      to right,
-      rgba(10, 8, 6, 0.85),
-      rgba(26, 20, 15, 0.8) 20%,
-      rgba(32, 25, 20, 0.8) 50%,
-      rgba(26, 20, 15, 0.8) 80%,
-      rgba(10, 8, 6, 0.85)
-    );
-    backdrop-filter: blur(6px);
+    background:
+      /* Top warm glow */
+      radial-gradient(ellipse 60% 100% at 50% 0%, rgba(201, 168, 76, 0.04) 0%, transparent 60%),
+      linear-gradient(
+        to right,
+        rgba(12, 9, 6, 0.92),
+        rgba(28, 22, 16, 0.9) 20%,
+        rgba(34, 26, 18, 0.9) 50%,
+        rgba(28, 22, 16, 0.9) 80%,
+        rgba(12, 9, 6, 0.92)
+      );
+    backdrop-filter: blur(8px);
     padding: 0;
-    border-bottom: 2px solid var(--iron-dark);
+    border-bottom: 1px solid rgba(212, 176, 88, 0.08);
     display: flex;
     align-items: stretch;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.7);
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.7);
 
     /* Top gold line */
     &::before {
@@ -279,8 +367,8 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      padding: 0.6rem 1rem;
-      gap: 0.2rem;
+      padding: 0.4rem 0.75rem;
+      gap: 0.15rem;
 
       .header-ornament {
         display: flex;
@@ -308,14 +396,14 @@
 
       .parchment-header {
         font-family: 'Cinzel', serif;
-        font-size: 1.6rem;
+        font-size: 1.3rem;
         color: var(--gold);
         text-transform: uppercase;
         letter-spacing: 8px;
         margin: 0;
         text-shadow:
-          0 0 20px rgba(212, 175, 55, 0.5),
-          2px 2px 4px rgba(0, 0, 0, 0.9);
+          0 0 15px rgba(212, 175, 55, 0.6),
+          2px 2px 4px rgba(0, 0, 0, 1);
         line-height: 1;
       }
 
@@ -337,15 +425,23 @@
 
   .content-area {
     flex: 1;
-    padding: 1.5rem;
+    padding: 0.75rem;
     overflow-y: auto;
     background: transparent;
+    scroll-behavior: smooth;
+    /* Custom scrollbar */
+    &::-webkit-scrollbar { width: 6px; }
+    &::-webkit-scrollbar-track { background: rgba(14, 10, 6, 0.5); }
+    &::-webkit-scrollbar-thumb {
+      background: linear-gradient(to bottom, #5c4020, #3a2816);
+      border-radius: 3px;
+      &:hover { background: linear-gradient(to bottom, #8a6828, #5c4020); }
+    }
   }
 }
 
 /* =============================================
-   HAMBURGER BUTTON (Uiverse AKAspidey01 style)
-   Black background / white lines, no colour change on hover
+   HAMBURGER BUTTON
    ============================================= */
 .hamburger-btn {
   cursor: pointer;
@@ -384,7 +480,6 @@
   &:hover .line-2 { width: 70%; }
   &:hover .line-3 { width: 40%; }
 
-  /* When sidebar is open, invert lines to signal "close" */
   &.is-open {
     background: #2a1a1a;
 
@@ -407,8 +502,8 @@
   left: 50%;
   transform: translateX(-50%);
   z-index: 1000;
-  background: rgba(10, 10, 10, 0.92);
-  border: 2px solid #d4af37;
+  background: rgba(10, 10, 10, 0.95);
+  border: 2px solid #b8860b;
   border-radius: 6px;
   padding: 1rem 1.5rem;
   display: flex;
@@ -418,12 +513,12 @@
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
   animation: toastSlideIn 0.4s ease;
 
-  .toast-icon { color: #d4af37; }
+  .toast-icon { color: #b8860b; }
   .toast-content {
     display: flex;
     flex-direction: column;
     gap: 0.25rem;
-    strong { color: #d4af37; font-family: 'Cinzel', serif; }
+    strong { color: #b8860b; font-family: 'Cinzel', serif; }
     span { font-family: 'Cinzel', serif; font-size: 0.9rem; }
   }
 }
@@ -431,4 +526,60 @@
 @keyframes toastSlideIn {
   from { opacity: 0; transform: translateX(-50%) translateY(-20px); }
   to   { opacity: 1; transform: translateX(-50%) translateY(0); }
+}
+
+/* =============================================
+   MAESTER TOGGLE BUTTON
+   ============================================= */
+.maester-toggle-btn {
+  position: fixed;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #2c1f12, #1a1208);
+  border: 2px solid #b8860b;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 16px rgba(184, 134, 11, 0.3), 0 4px 12px rgba(0, 0, 0, 0.8);
+  transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+  z-index: 55;
+
+  &:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 24px rgba(184, 134, 11, 0.5), 0 6px 16px rgba(0, 0, 0, 0.9);
+    border-color: #f4e8d1;
+  }
+
+  &:active {
+    transform: scale(0.95);
+  }
+
+  .maester-avatar-indicator {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: radial-gradient(circle, #c9a84c, #8a6828);
+    box-shadow: 0 0 8px rgba(201, 168, 76, 0.4);
+  }
+}
+
+/* =============================================
+   GLOBAL SMOOTH SCROLLBAR
+   ============================================= */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: rgba(14, 10, 6, 0.5); }
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(to bottom, #5c4020, #3a2816);
+  border-radius: 3px;
+  &:hover { background: linear-gradient(to bottom, #8a6828, #5c4020); }
+}
+
+/* Selection color */
+::selection {
+  background: rgba(184, 134, 11, 0.3);
+  color: #f4e8d1;
 }

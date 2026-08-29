@@ -5,6 +5,7 @@ import { Trash2, ChevronLeft, ChevronRight } from 'lucide-react';
 
 const Calendar = () => {
   const [schedule, setSchedule] = useState([]);
+  const [foodEntries, setFoodEntries] = useState([]);
   const [loading, setLoading] = useState(true);
   const [showForm, setShowForm] = useState(false);
   const [selectedEvent, setSelectedEvent] = useState(null);
@@ -15,6 +16,7 @@ const Calendar = () => {
 
   useEffect(() => {
     fetchSchedule();
+    fetchFoodEntries();
   }, []);
 
   const fetchSchedule = async () => {
@@ -26,6 +28,20 @@ const Calendar = () => {
       console.error('Error fetching schedule:', error);
       setLoading(false);
     }
+  };
+
+  const fetchFoodEntries = async () => {
+    try {
+      const response = await api.get('/fitness/entries');
+      setFoodEntries(response.data);
+    } catch (error) {
+      console.error('Error fetching food entries:', error);
+    }
+  };
+
+  const getDayCalories = (dateStr) => {
+    const dayFoods = foodEntries.filter(f => f.date === dateStr);
+    return dayFoods.reduce((a, f) => a + f.calories, 0);
   };
 
   const handleAddEvent = async (e) => {
@@ -81,7 +97,7 @@ const Calendar = () => {
     const month = currentDate.getMonth();
     const daysInMonth = getDaysInMonth(year, month);
     const firstDay = new Date(year, month, 1).getDay();
-    const startOffset = firstDay === 0 ? 6 : firstDay - 1; // Start on Monday
+    const startOffset = firstDay === 0 ? 6 : firstDay - 1;
     
     const days = [];
     for (let i = 0; i < startOffset; i++) {
@@ -97,18 +113,24 @@ const Calendar = () => {
   const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
   const weekDays = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
 
+  const isToday = (dateStr) => {
+    if (!dateStr) return false;
+    const today = new Date();
+    return dateStr === `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')}`;
+  };
+
   return (
     <div className="calendar-container">
       <div className="calendar-header">
         <div className="month-navigation">
-          <button className="nav-btn" onClick={prevMonth}><ChevronLeft size={24} /></button>
+          <button className="nav-btn" onClick={prevMonth}><ChevronLeft size={18} /></button>
           <h3>{monthNames[currentDate.getMonth()]} {currentDate.getFullYear()}</h3>
-          <button className="nav-btn" onClick={nextMonth}><ChevronRight size={24} /></button>
+          <button className="nav-btn" onClick={nextMonth}><ChevronRight size={18} /></button>
         </div>
       </div>
 
       {showForm && (
-        <form className="event-form glass-panel" onSubmit={handleAddEvent}>
+        <form className="event-form" onSubmit={handleAddEvent}>
           <input 
             type="text" 
             placeholder="Event Title" 
@@ -158,7 +180,7 @@ const Calendar = () => {
             </div>
             <div className="modal-actions">
               <button className="delete-btn" onClick={() => deleteEvent(selectedEvent.id)}>
-                <Trash2 size={16} /> Delete Event
+                <Trash2 size={14} /> Delete
               </button>
               <button className="close-btn" onClick={() => setSelectedEvent(null)}>Close</button>
             </div>
@@ -176,15 +198,20 @@ const Calendar = () => {
           {generateCalendarDays().map((dateStr, idx) => (
             <div 
               key={idx} 
-              className={`calendar-cell ${!dateStr ? 'empty' : 'clickable'}`}
+              className={`calendar-cell ${!dateStr ? 'empty' : 'clickable'} ${isToday(dateStr) ? 'today' : ''}`}
               onClick={() => handleCellClick(dateStr)}
             >
               {dateStr && (
                 <>
                   <div className="cell-date">{parseInt(dateStr.split('-')[2])}</div>
+                  {getDayCalories(dateStr) > 0 && (
+                    <div className="cell-nutrition">
+                      <span className="cell-cal">{Math.round(getDayCalories(dateStr))} cal</span>
+                    </div>
+                  )}
                   <div className="cell-events">
                     {schedule
-                      .filter(item => item.date === dateStr || item.day === dateStr) // backward compat for old data
+                      .filter(item => item.date === dateStr || item.day === dateStr)
                       .sort((a, b) => (a.time || "").localeCompare(b.time || ""))
                       .map(item => (
                         <div 
@@ -194,7 +221,7 @@ const Calendar = () => {
                         >
                           <span className="compact-title">{item.time} {item.title}</span>
                           <button className="delete-btn" onClick={(e) => { e.stopPropagation(); deleteEvent(item.id); }}>
-                            <Trash2 size={12} />
+                            <Trash2 size={10} />
                           </button>
                         </div>
                       ))}

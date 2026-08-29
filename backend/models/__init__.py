@@ -81,3 +81,28 @@ class RavenItem(Base):
     dispatch_time = Column(String, nullable=False)  # ISO string
     created_at = Column(DateTime, default=datetime.utcnow)
     updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+
+
+class FoodEntry(Base):
+    __tablename__ = "food_entries"
+    
+    id = Column(String, primary_key=True, default=gen_uuid)
+    name = Column(String, nullable=False)
+    calories = Column(Float, nullable=False)
+    protein = Column(Float, default=0)
+    carbs = Column(Float, default=0)
+    date = Column(String, nullable=False)  # YYYY-MM-DD
+    meal_type = Column(String, default="other")  # breakfast, lunch, dinner, snack
+    created_at = Column(DateTime, default=datetime.utcnow)
+    updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+
+
+class FitnessGoal(Base):
+    __tablename__ = "fitness_goals"
+    
+    id = Column(String, primary_key=True, default=gen_uuid)
+    daily_calories = Column(Float, nullable=False)
+    daily_protein = Column(Float, default=150)
+    daily_carbs = Column(Float, default=250)
+    created_at = Column(DateTime, default=datetime.utcnow)
+    updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)

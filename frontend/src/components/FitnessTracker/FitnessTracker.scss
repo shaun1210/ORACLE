@@ -1,0 +1,717 @@
+/* =============================================
+   FITNESS TRACKER — Dark Medieval Theme
+   The Royal Feast — Premium Nutrition UI
+   ============================================= */
+
+.fitness-container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 1.5rem;
+  border-radius: 6px;
+  min-height: 80vh;
+  position: relative;
+  animation: slideUp 0.5s ease-out;
+  background:
+    url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23g)' opacity='0.03'/%3E%3C/svg%3E"),
+    linear-gradient(145deg, #2c1f12 0%, #221810 50%, #2c1f12 100%);
+  background-size: 200px 200px, 100% 100%;
+  border: 2px solid #5c4020;
+  box-shadow:
+    0 0 0 1px rgba(212, 176, 88, 0.08),
+    inset 0 0 40px rgba(0, 0, 0, 0.3),
+    0 20px 50px rgba(0, 0, 0, 0.85);
+
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 8px;
+    border: 1px solid rgba(212, 176, 88, 0.1);
+    border-radius: 4px;
+    pointer-events: none;
+  }
+
+  .section-title {
+    text-align: center;
+    color: #d4b058;
+    font-size: 1.5rem;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    margin-bottom: 0.3rem;
+    text-shadow: 0 0 20px rgba(212, 176, 88, 0.3), 0 2px 4px rgba(0, 0, 0, 0.8);
+  }
+
+  .section-divider {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin: 0 auto 1.25rem;
+    max-width: 400px;
+    .div-line { flex: 1; height: 1px; background: linear-gradient(to right, transparent, rgba(212, 176, 88, 0.3)); &.right { background: linear-gradient(to left, transparent, rgba(212, 176, 88, 0.3)); } }
+    .div-ornament { width: 7px; height: 7px; border: 1px solid #a07830; transform: rotate(45deg); background: rgba(212, 176, 88, 0.2); }
+  }
+}
+
+/* =========================================
+   DATE SELECTOR
+   ========================================= */
+.date-selector {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  margin-bottom: 1.25rem;
+
+  .date-nav {
+    background: rgba(28, 20, 12, 0.8);
+    border: 1px solid #5c4020;
+    color: #a07830;
+    border-radius: 4px;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+    &:hover { border-color: #c9a84c; color: #d4b058; background: rgba(40, 28, 16, 0.9); transform: translateY(-1px); }
+  }
+
+  .date-display {
+    background: transparent;
+    border: 1px solid rgba(212, 176, 88, 0.15);
+    color: #d4b058;
+    padding: 0.4rem 1rem;
+    border-radius: 4px;
+    font-family: 'Cinzel', serif;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    transition: all 0.2s;
+    &:hover { border-color: #c9a84c; background: rgba(201, 168, 76, 0.05); }
+  }
+}
+
+/* =========================================
+   FEAST HERO — Circular Gauge + Macros
+   ========================================= */
+.feast-hero {
+  display: flex;
+  gap: 1.5rem;
+  align-items: stretch;
+  margin-bottom: 1.25rem;
+  padding: 1.25rem;
+  background: rgba(20, 14, 8, 0.5);
+  border: 1px solid rgba(92, 64, 32, 0.3);
+  border-radius: 8px;
+  position: relative;
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 5px;
+    border: 1px solid rgba(212, 176, 88, 0.06);
+    border-radius: 5px;
+    pointer-events: none;
+  }
+}
+
+/* Circular Calorie Gauge */
+.calorie-gauge {
+  position: relative;
+  width: 180px;
+  min-width: 180px;
+  height: 180px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .gauge-svg {
+    width: 100%;
+    height: 100%;
+    filter: drop-shadow(0 0 8px rgba(201, 168, 76, 0.15));
+  }
+
+  .gauge-progress {
+    transition: stroke-dashoffset 1s cubic-bezier(0.22, 1, 0.36, 1);
+    filter: drop-shadow(0 0 4px rgba(201, 168, 76, 0.3));
+  }
+
+  .gauge-center {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.1rem;
+
+    .gauge-consumed {
+      font-family: 'Cinzel', serif;
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: #d4b058;
+      line-height: 1;
+      text-shadow: 0 0 12px rgba(212, 176, 88, 0.3);
+    }
+
+    .gauge-separator {
+      font-family: 'Cinzel', serif;
+      font-size: 0.6rem;
+      color: #8a7040;
+      letter-spacing: 0.5px;
+    }
+
+    .gauge-label {
+      font-family: 'Cinzel', serif;
+      font-size: 0.55rem;
+      color: #6a5030;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+  }
+
+  .gauge-warning {
+    position: absolute;
+    bottom: 15px;
+    font-family: 'Cinzel', serif;
+    font-size: 0.6rem;
+    color: #c04040;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+  }
+}
+
+/* Macro Sidebar */
+.macro-sidebar {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.macro-ring-card {
+  background: rgba(28, 20, 12, 0.6);
+  border: 1px solid rgba(92, 64, 32, 0.25);
+  border-radius: 6px;
+  padding: 0.65rem 0.85rem;
+  transition: all 0.2s;
+
+  &:hover {
+    border-color: rgba(92, 64, 32, 0.45);
+    background: rgba(28, 20, 12, 0.75);
+  }
+}
+
+.macro-ring-header {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-bottom: 0.4rem;
+
+  span {
+    font-family: 'Cinzel', serif;
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: #c8a860;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .macro-icon {
+    &.protein { color: #e04040; }
+    &.carbs { color: #c9a84c; }
+    &.remaining { color: #5a9a5a; }
+    &.goal { color: #8a6ec8; }
+  }
+}
+
+.macro-ring-track {
+  width: 100%;
+  height: 8px;
+  background: rgba(20, 14, 8, 0.6);
+  border-radius: 4px;
+  overflow: hidden;
+  border: 1px solid #3a2816;
+  margin-bottom: 0.3rem;
+
+  .macro-ring-fill {
+    height: 100%;
+    border-radius: 4px;
+    transition: width 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+    position: relative;
+    overflow: hidden;
+
+    &.protein-fill {
+      background: linear-gradient(90deg, #a02020, #e04040);
+      &::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.15) 50%, transparent 100%);
+        background-size: 200% 100%;
+        animation: shimmer 3s linear infinite;
+      }
+    }
+
+    &.carbs-fill {
+      background: linear-gradient(90deg, #8a6828, #c9a84c);
+      &::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.15) 50%, transparent 100%);
+        background-size: 200% 100%;
+        animation: shimmer 3s linear infinite;
+      }
+    }
+  }
+}
+
+.macro-ring-text {
+  font-family: 'Cinzel', serif;
+  font-size: 0.6rem;
+  color: #8a7040;
+}
+
+.stat-card {
+  .stat-value {
+    font-family: 'Cinzel', serif;
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #d4b058;
+    line-height: 1;
+    text-shadow: 0 0 8px rgba(212, 176, 88, 0.2);
+  }
+
+  .stat-unit {
+    font-family: 'Cinzel', serif;
+    font-size: 0.55rem;
+    color: #6a5030;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-top: 0.15rem;
+  }
+}
+
+/* =========================================
+   GOAL FORM
+   ========================================= */
+.goal-form {
+  background: rgba(28, 20, 12, 0.7);
+  border: 1px solid #5c4020;
+  border-radius: 6px;
+  padding: 1rem;
+  margin-bottom: 1.25rem;
+
+  h4 {
+    font-family: 'Cinzel', serif;
+    font-size: 0.8rem;
+    color: #d4b058;
+    margin-bottom: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .goal-inputs {
+    display: flex;
+    gap: 0.75rem;
+    margin-bottom: 0.75rem;
+
+    .goal-input-group {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+      label { font-family: 'Cinzel', serif; font-size: 0.6rem; color: #8a7040; text-transform: uppercase; letter-spacing: 0.5px; }
+      input {
+        background: rgba(20, 14, 8, 0.7);
+        border: 1px solid #5c4020;
+        border-radius: 3px;
+        padding: 0.4rem 0.6rem;
+        color: #c8a860;
+        font-family: 'Cinzel', serif;
+        font-size: 0.8rem;
+        outline: none;
+        &:focus { border-color: #c9a84c; box-shadow: 0 0 6px rgba(201, 168, 76, 0.12); }
+      }
+    }
+  }
+
+  .save-goal-btn {
+    width: 100%;
+    background: linear-gradient(135deg, #a07830, #806020);
+    color: #1a0e06;
+    padding: 0.5rem;
+    border-radius: 3px;
+    font-family: 'Cinzel', serif;
+    font-weight: 700;
+    font-size: 0.75rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    border: 1px solid #b08838;
+    transition: all 0.25s;
+    &:hover { background: linear-gradient(135deg, #c09040, #a07830); }
+  }
+}
+
+/* =========================================
+   ACTION BUTTONS
+   ========================================= */
+.action-row {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1.25rem;
+
+  .action-btn {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+    padding: 0.55rem 0.5rem;
+    border-radius: 4px;
+    font-family: 'Cinzel', serif;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+    transition: all 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+
+    &.primary {
+      background: linear-gradient(135deg, #8a2218, #601410);
+      color: #d4b058;
+      border: 1px solid #a02828;
+      &:hover { background: linear-gradient(135deg, #a03020, #701810); transform: translateY(-1px); box-shadow: 0 4px 12px rgba(160, 40, 40, 0.3); }
+    }
+
+    &.secondary {
+      background: rgba(28, 20, 12, 0.8);
+      border: 1px solid #5c4020;
+      color: #a07830;
+      &:hover { border-color: #c9a84c; color: #d4b058; transform: translateY(-1px); }
+    }
+
+    &.tertiary {
+      background: rgba(28, 20, 12, 0.8);
+      border: 1px solid #4a3418;
+      color: #8a7040;
+      &:hover { border-color: #a07830; color: #c8a860; transform: translateY(-1px); }
+    }
+  }
+}
+
+/* =========================================
+   QUICK ADD PANEL
+   ========================================= */
+.quick-add-panel {
+  background: rgba(20, 14, 8, 0.85);
+  border: 1px solid #4a3418;
+  border-radius: 6px;
+  padding: 0.85rem;
+  margin-bottom: 1.25rem;
+  max-height: 320px;
+  display: flex;
+  flex-direction: column;
+
+  .quick-add-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.6rem;
+    span { font-family: 'Cinzel', serif; font-size: 0.75rem; color: #d4b058; text-transform: uppercase; letter-spacing: 1px; }
+  }
+
+  .close-panel-btn {
+    background: transparent;
+    border: 1px solid rgba(160, 32, 32, 0.3);
+    color: #a04040;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.7rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s;
+    &:hover { background: rgba(160, 32, 32, 0.2); border-color: #a04040; }
+  }
+
+  .search-input {
+    width: 100%;
+    background: rgba(20, 14, 8, 0.7);
+    border: 1px solid #5c4020;
+    border-radius: 4px;
+    padding: 0.5rem 0.8rem;
+    color: #c8a860;
+    font-family: 'Cinzel', serif;
+    font-size: 0.8rem;
+    margin-bottom: 0.6rem;
+    outline: none;
+    &::placeholder { color: #6a5030; }
+    &:focus { border-color: #c9a84c; box-shadow: 0 0 8px rgba(201, 168, 76, 0.1); }
+  }
+}
+
+/* Food Grid */
+.food-grid {
+  flex: 1;
+  overflow-y: auto;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.4rem;
+  max-height: 220px;
+
+  .food-card {
+    background: rgba(28, 20, 12, 0.6);
+    border: 1px solid rgba(92, 64, 32, 0.2);
+    border-radius: 4px;
+    padding: 0.5rem 0.6rem;
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.22, 1, 0.36, 1);
+
+    &:hover {
+      background: rgba(201, 168, 76, 0.08);
+      border-color: rgba(201, 168, 76, 0.3);
+      transform: translateY(-1px);
+      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
+    }
+
+    .food-card-name {
+      font-family: 'Cinzel', serif;
+      font-size: 0.65rem;
+      color: #c8a860;
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .food-card-macros {
+      display: flex;
+      gap: 0.4rem;
+      font-family: 'Cinzel', serif;
+      font-size: 0.5rem;
+
+      .food-cal { color: #d4b058; }
+      .food-protein { color: #c07070; }
+      .food-carbs { color: #a09060; }
+    }
+  }
+}
+
+/* =========================================
+   ADD ENTRY FORM
+   ========================================= */
+.add-entry-form {
+  background: rgba(20, 14, 8, 0.85);
+  border: 1px solid #4a3418;
+  border-radius: 6px;
+  padding: 1rem;
+  margin-bottom: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+
+  .form-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    span { font-family: 'Cinzel', serif; font-size: 0.75rem; color: #d4b058; text-transform: uppercase; letter-spacing: 1px; }
+  }
+
+  input {
+    background: rgba(20, 14, 8, 0.7);
+    border: 1px solid #5c4020;
+    border-radius: 3px;
+    padding: 0.5rem 0.75rem;
+    color: #c8a860;
+    font-family: 'Cinzel', serif;
+    font-size: 0.8rem;
+    outline: none;
+    &::placeholder { color: #6a5030; }
+    &:focus { border-color: #c9a84c; box-shadow: 0 0 6px rgba(201, 168, 76, 0.1); }
+  }
+
+  .entry-row {
+    display: flex;
+    gap: 0.5rem;
+    input { flex: 1; }
+  }
+
+  .meal-type-row {
+    display: flex;
+    gap: 0.4rem;
+    .meal-type-btn {
+      flex: 1;
+      padding: 0.35rem;
+      background: rgba(20, 14, 8, 0.6);
+      border: 1px solid #4a3418;
+      color: #8a7040;
+      border-radius: 3px;
+      font-family: 'Cinzel', serif;
+      font-size: 0.6rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.25rem;
+      transition: all 0.2s;
+      &:hover { border-color: #a07830; color: #c8a860; }
+      &.active { background: rgba(201, 168, 76, 0.12); border-color: #c9a84c; color: #d4b058; }
+    }
+  }
+
+  .submit-btn {
+    background: linear-gradient(135deg, #a07830, #806020);
+    color: #1a0e06;
+    padding: 0.5rem;
+    border-radius: 3px;
+    font-family: 'Cinzel', serif;
+    font-weight: 700;
+    font-size: 0.75rem;
+    border: 1px solid #b08838;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    transition: all 0.25s;
+    &:hover { background: linear-gradient(135deg, #c09040, #a07830); }
+  }
+}
+
+/* =========================================
+   MEAL SECTIONS
+   ========================================= */
+.meal-sections {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.meal-section {
+  background: rgba(28, 20, 12, 0.55);
+  border: 1px solid #4a3418;
+  border-radius: 6px;
+  overflow: hidden;
+  animation: cardReveal 0.4s ease-out;
+
+  .meal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 0.85rem;
+    background: rgba(20, 14, 8, 0.5);
+    border-bottom: 1px solid rgba(58, 40, 22, 0.3);
+
+    .meal-header-left {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      color: #d4b058;
+
+      h4 {
+        font-family: 'Cinzel', serif;
+        font-size: 0.75rem;
+        color: #d4b058;
+        margin: 0;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+    }
+
+    .meal-header-right {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+
+      .meal-stat {
+        font-family: 'Cinzel', serif;
+        font-size: 0.6rem;
+        color: #a07830;
+      }
+
+      .meal-stat-sep {
+        color: rgba(92, 64, 32, 0.4);
+        font-size: 0.5rem;
+      }
+    }
+  }
+
+  .entry-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.5rem 0.85rem;
+    border-bottom: 1px solid rgba(58, 40, 22, 0.2);
+    transition: background 0.15s;
+    &:last-child { border-bottom: none; }
+    &:hover { background: rgba(20, 14, 8, 0.3); }
+
+    .entry-info {
+      display: flex;
+      flex-direction: column;
+      gap: 0.2rem;
+
+      .entry-name {
+        font-family: 'Cinzel', serif;
+        font-size: 0.8rem;
+        color: #c8a860;
+        font-weight: 600;
+      }
+
+      .entry-macro-row {
+        display: flex;
+        gap: 0.4rem;
+
+        .macro-pill {
+          font-family: 'Cinzel', serif;
+          font-size: 0.48rem;
+          padding: 0.1rem 0.35rem;
+          border-radius: 2px;
+          font-weight: 700;
+
+          &.cal-pill {
+            background: rgba(201, 168, 76, 0.12);
+            color: #c9a84c;
+          }
+          &.protein-pill {
+            background: rgba(224, 64, 64, 0.12);
+            color: #e07070;
+          }
+          &.carbs-pill {
+            background: rgba(160, 120, 48, 0.12);
+            color: #a09060;
+          }
+        }
+      }
+    }
+
+    .entry-delete {
+      background: transparent;
+      border: none;
+      color: #a02020;
+      opacity: 0;
+      padding: 0.2rem;
+      transition: all 0.2s;
+      &:hover { opacity: 1; transform: scale(1.2); }
+    }
+  }
+}
+
+.empty-state {
+  text-align: center;
+  padding: 2rem 1rem;
+  font-family: 'Cinzel', serif;
+
+  .empty-icon {
+    font-size: 0.85rem;
+    color: #8a7040;
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  p {
+    font-style: italic;
+    color: #6a5030;
+    font-size: 0.8rem;
+    margin: 0;
+  }
+}

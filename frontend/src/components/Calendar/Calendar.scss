@@ -1,415 +1,303 @@
 /* =============================================
-   CALENDAR — War Table Chronicle
-   Bronze riveted frame, sigil medallions,
-   blood-stained leather field, etched grid
-   (based on the reference design)
+   CALENDAR — Compact Leather Texture Layout
+   Dense, readable, works at 100% viewport
    ============================================= */
 
 @use '../../styles/textures' as *;
 
 .calendar-container {
-  padding: 2.5rem 3rem;
+  --cal-gold: #c9a84c;
+  --cal-gold-br: #f0d878;
+  --cal-gold-dim: #a07830;
+  --cal-body: #3a2816;
+  --cal-muted: #6a5030;
+  --cal-blood: #8a1c1c;
+  --cal-border: rgba(92, 64, 32, 0.5);
+
+  padding: 0;
   display: flex;
   flex-direction: column;
-  gap: 1.25rem;
+  gap: 0;
   animation: slideUp 0.5s ease-out;
   min-height: 100%;
-  height: max-content;
   position: relative;
-  border-radius: 10px;
+  border-radius: 4px;
+  overflow: hidden;
 
-  /* =============================================
-     THE FIELD — blood-stained dark leather
-     ============================================= */
-  background-color: #2b1a10;
-  background-image:
-    /* Corner fog (soft pale wisps) */
-    radial-gradient(ellipse 30% 22% at 0% 0%, rgba(190, 190, 195, 0.075) 0%, transparent 70%),
-    radial-gradient(ellipse 30% 22% at 100% 0%, rgba(190, 190, 195, 0.06) 0%, transparent 70%),
-    radial-gradient(ellipse 34% 24% at 0% 100%, rgba(190, 190, 195, 0.05) 0%, transparent 70%),
-    radial-gradient(ellipse 34% 24% at 100% 100%, rgba(190, 190, 195, 0.065) 0%, transparent 70%),
-    /* Blood splatters */
-    radial-gradient(ellipse 5% 4% at 12% 30%, rgba(122, 16, 16, 0.4) 0%, rgba(122, 16, 16, 0.12) 45%, transparent 70%),
-    radial-gradient(ellipse 3.5% 3% at 15% 33%, rgba(90, 13, 13, 0.45) 0%, transparent 70%),
-    radial-gradient(ellipse 2% 1.6% at 10% 27%, rgba(122, 16, 16, 0.5) 0%, transparent 70%),
-    radial-gradient(ellipse 6% 4.5% at 88% 24%, rgba(110, 14, 14, 0.35) 0%, rgba(110, 14, 14, 0.1) 50%, transparent 72%),
-    radial-gradient(ellipse 4% 5% at 82% 70%, rgba(122, 16, 16, 0.32) 0%, transparent 70%),
-    radial-gradient(ellipse 7% 5% at 22% 88%, rgba(100, 12, 12, 0.3) 0%, transparent 70%),
-    radial-gradient(ellipse 2.5% 2% at 90% 78%, rgba(122, 16, 16, 0.42) 0%, transparent 70%),
-    radial-gradient(ellipse 1.6% 1.3% at 86% 30%, rgba(140, 20, 20, 0.5) 0%, transparent 70%),
-    /* Burn / scorch marks */
-    radial-gradient(ellipse 18% 14% at 64% 84%, rgba(12, 7, 3, 0.55) 0%, rgba(20, 12, 5, 0.3) 45%, transparent 72%),
-    radial-gradient(ellipse 14% 10% at 30% 15%, rgba(12, 7, 3, 0.4) 0%, transparent 70%),
-    radial-gradient(ellipse 10% 8% at 76% 44%, rgba(10, 6, 2, 0.35) 0%, transparent 70%),
-    /* Mottled leather toning */
-    radial-gradient(ellipse 40% 30% at 20% 55%, rgba(122, 82, 44, 0.16) 0%, transparent 70%),
-    radial-gradient(ellipse 35% 26% at 70% 30%, rgba(110, 74, 38, 0.14) 0%, transparent 70%),
-    radial-gradient(ellipse 30% 22% at 50% 78%, rgba(96, 62, 30, 0.18) 0%, transparent 70%),
-    /* Central warm lantern glow */
-    radial-gradient(ellipse 70% 55% at 50% 45%, rgba(140, 92, 46, 0.28) 0%, rgba(105, 66, 30, 0.12) 50%, transparent 78%),
-    /* Base leather gradient */
-    linear-gradient(155deg, #3a2415 0%, #2e1c0f 40%, #26160b 70%, #1d1008 100%),
-    /* Leather grain noise */
-    url("data:image/svg+xml,%3Csvg viewBox='0 0 300 300' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='leather'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='5' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23leather)' opacity='0.16'/%3E%3C/svg%3E");
-  background-size: auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, 100% 100%, 220px 220px;
-  background-repeat: no-repeat, no-repeat, no-repeat, no-repeat, no-repeat, no-repeat, no-repeat, no-repeat, no-repeat, no-repeat, no-repeat, no-repeat, no-repeat, no-repeat, no-repeat, no-repeat, no-repeat, no-repeat, no-repeat, no-repeat, repeat;
+  /* Leather texture background */
+  background: url('/assets/got_calendar_bg.jpg') center/cover no-repeat;
+  background-color: #2a1c10;
 
-  /* =============================================
-     THE FRAME — riveted dark bronze
-     ============================================= */
-  border: 12px solid transparent;
-  border-image: linear-gradient(160deg, #6d5426 0%, #4a3818 25%, #2e2210 50%, #55411e 75%, #241a08 100%) 1;
-  box-shadow:
-    /* Outer edge highlight */
-    0 0 0 1px rgba(232, 200, 119, 0.22),
-    /* Inner bevel into the leather */
-    inset 0 0 0 1px rgba(0, 0, 0, 0.85),
-    inset 0 0 18px rgba(0, 0, 0, 0.65),
-    /* Heavy drop shadow */
-    0 24px 60px rgba(0, 0, 0, 0.92);
-
-  /* Rivets along the frame via layered pseudo elements */
+  /* Outer frame */
   &::before {
     content: '';
     position: absolute;
-    inset: -12px;
+    inset: -6px;
+    border-radius: 6px;
+    background: linear-gradient(180deg, #4a3e35, #2a221d 30%, #1f1a16 70%, #4a3e35);
+    border: 1px solid rgba(212, 176, 88, 0.06);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
+    z-index: 0;
     pointer-events: none;
-    border-radius: 8px;
-    background-image:
-      radial-gradient(circle, #c9a85c 0%, #8a6c34 30%, #3d2e12 65%, transparent 66%);
-    background-size: 14px 14px;
-    background-repeat: repeat-x;
-    background-position: 0 -5px, 0 calc(100% + 5px);
-    /* Mask rivet strips to frame edges only */
-    -webkit-mask:
-      linear-gradient(#000 0 0) top / 100% 10px no-repeat,
-      linear-gradient(#000 0 0) bottom / 100% 10px no-repeat,
-      linear-gradient(#000 0 0) left / 10px 100% no-repeat,
-      linear-gradient(#000 0 0) right / 10px 100% no-repeat;
-    mask:
-      linear-gradient(#000 0 0) top / 100% 10px no-repeat,
-      linear-gradient(#000 0 0) bottom / 100% 10px no-repeat,
-      linear-gradient(#000 0 0) left / 10px 100% no-repeat,
-      linear-gradient(#000 0 0) right / 10px 100% no-repeat;
-    opacity: 0.85;
-    z-index: 7;
   }
 
-  /* Soft vignette just inside the frame */
+  /* Inner border line */
   &::after {
     content: '';
     position: absolute;
-    inset: 0;
+    inset: 3px;
+    border: 1px solid rgba(212, 176, 88, 0.08);
+    border-radius: 3px;
     pointer-events: none;
-    border-radius: 4px;
-    box-shadow: inset 0 0 46px rgba(0, 0, 0, 0.55);
-    z-index: 5;
+    z-index: 1;
   }
 
+  /* =========================================
+     HEADER
+     ========================================= */
   .calendar-header {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
-    padding-bottom: 1rem;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.55);
+    padding: 0.4rem 1rem;
     position: relative;
-    z-index: 6;
+    z-index: 9;
+    background: rgba(30, 22, 12, 0.85);
 
-    /* Etched highlight under the rule */
     &::after {
       content: '';
       position: absolute;
-      bottom: -2px;
-      left: 0; right: 0;
+      bottom: 0;
+      left: 8%;
+      right: 8%;
       height: 1px;
-      background: linear-gradient(to right, transparent, rgba(212, 175, 55, 0.28), rgba(212, 175, 55, 0.45), rgba(212, 175, 55, 0.28), transparent);
+      background: linear-gradient(to right, transparent, rgba(212, 176, 88, 0.2), transparent);
     }
 
     .month-navigation {
       display: flex;
       align-items: center;
-      gap: 0.75rem;
+      gap: 0.5rem;
 
       h3 {
-        font-size: 1.55rem;
-        color: #9b2c20;
-        min-width: 220px;
+        font-size: 0.85rem;
+        min-width: 200px;
         text-align: center;
-        letter-spacing: 3px;
+        letter-spacing: 0.25em;
         text-transform: uppercase;
         font-weight: 700;
-        text-shadow:
-          0 1px 0 rgba(0, 0, 0, 0.85),
-          0 0 14px rgba(155, 44, 32, 0.3);
+        font-family: 'Cinzel', serif;
+        text-shadow: 0 0 8px rgba(212, 176, 88, 0.2);
+        background: linear-gradient(90deg, var(--cal-gold) 0%, var(--cal-gold-br) 40%, var(--cal-gold) 60%, var(--cal-gold-dim) 100%);
+        background-size: 200% auto;
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+        animation: shimmer 8s linear infinite;
       }
 
       .nav-btn {
-        background: linear-gradient(160deg, #4a3818, #2e2210);
-        border: 1px solid rgba(201, 168, 92, 0.35);
-        color: #c9a85c;
+        background: rgba(30, 22, 12, 0.9);
+        border: 1px solid var(--cal-border);
+        color: var(--cal-gold-dim);
         border-radius: 3px;
-        width: 38px;
-        height: 38px;
+        width: 26px;
+        height: 26px;
         display: flex;
         align-items: center;
         justify-content: center;
         transition: all 0.2s;
-        box-shadow: inset 0 1px 0 rgba(232, 200, 119, 0.2), 0 2px 6px rgba(0, 0, 0, 0.6);
-
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
         &:hover {
-          background: linear-gradient(160deg, #5d4820, #3a2c14);
-          border-color: rgba(201, 168, 92, 0.6);
-          color: #e8c877;
-          transform: scale(1.08);
-          box-shadow: 0 0 10px rgba(201, 168, 92, 0.35), 0 2px 8px rgba(0, 0, 0, 0.6);
+          border-color: var(--cal-gold);
+          color: var(--cal-gold-br);
+          transform: translateY(-1px);
         }
-      }
-    }
-
-    .add-event-btn {
-      background: linear-gradient(135deg, #7b1d15, #551009);
-      color: #f4dfa8;
-      border: 1px solid #3d0c06;
-      border-radius: 3px;
-      padding: 0.5rem 1.25rem;
-      font-family: 'Cinzel', serif;
-      font-size: 0.8rem;
-      font-weight: 700;
-      letter-spacing: 1.5px;
-      text-transform: uppercase;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      box-shadow: inset 0 1px 0 rgba(255,255,255,0.1), 0 3px 8px rgba(0,0,0,0.5);
-      transition: all 0.2s;
-
-      &:hover {
-        background: linear-gradient(135deg, #96251b, #6b150c);
-        transform: translateY(-1px);
-        box-shadow: inset 0 1px 0 rgba(255,255,255,0.15), 0 5px 12px rgba(0,0,0,0.6);
       }
     }
   }
 
+  /* =========================================
+     GRID — Dense, compact
+     ========================================= */
   .month-grid {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
     gap: 0;
-    border: 1px solid rgba(0, 0, 0, 0.6);
-    border-radius: 4px;
-    overflow: hidden;
+    border-top: 1px solid rgba(212, 176, 88, 0.1);
     flex-grow: 1;
-    min-height: 400px;
-    box-shadow:
-      inset 0 0 34px rgba(0, 0, 0, 0.45),
-      0 0 0 1px rgba(201, 168, 92, 0.14);
+    min-height: 280px;
     position: relative;
-    z-index: 6;
+    z-index: 9;
 
     .weekday-header {
       text-align: center;
       font-weight: 700;
-      color: #a13a2c;
-      padding: 0.6rem;
-      font-size: 0.8rem;
+      color: rgba(60, 40, 20, 0.9);
+      padding: 0.25rem;
+      font-size: 0.55rem;
       text-transform: uppercase;
-      letter-spacing: 2px;
-      border-bottom: 1px solid rgba(0, 0, 0, 0.55);
-      border-right: 1px solid rgba(0, 0, 0, 0.45);
-      box-shadow: 0 1px 0 rgba(201, 168, 92, 0.12);
+      letter-spacing: 0.12em;
+      border-bottom: 1px solid rgba(92, 64, 32, 0.35);
+      border-right: 1px solid rgba(92, 64, 32, 0.2);
       font-family: 'Cinzel', serif;
-      background: linear-gradient(to bottom, rgba(0, 0, 0, 0.28), rgba(0, 0, 0, 0.12));
-      text-shadow: 0 1px 1px rgba(0, 0, 0, 0.8);
-
+      background: rgba(200, 170, 120, 0.1);
       &:last-child { border-right: none; }
     }
 
     .calendar-cell {
-      border-bottom: 1px solid rgba(0, 0, 0, 0.5);
-      border-right: 1px solid rgba(0, 0, 0, 0.4);
-      box-shadow: inset 0 1px 0 rgba(201, 168, 92, 0.05);
-      min-height: 90px;
-      padding: 0.4rem 0.5rem;
+      border-bottom: 1px solid rgba(92, 64, 32, 0.25);
+      border-right: 1px solid rgba(92, 64, 32, 0.2);
+      min-height: 52px;
+      max-height: 65px;
+      padding: 0.2rem 0.3rem;
       display: flex;
       flex-direction: column;
-      gap: 0.2rem;
-      transition: background 0.2s;
+      gap: 0.05rem;
+      transition: all 0.15s ease;
       overflow-y: auto;
       position: relative;
+      cursor: pointer;
+      background: rgba(20, 14, 8, 0.1);
 
       &:nth-child(7n) { border-right: none; }
 
       &.empty {
-        background: rgba(0, 0, 0, 0.04);
+        background: rgba(16, 12, 6, 0.06);
+        cursor: default;
       }
 
-      &.clickable { cursor: pointer; }
-
-      &:not(.empty):hover {
-        background: rgba(139, 26, 26, 0.05);
+      &.clickable {
+        cursor: pointer;
+        &:hover {
+          background: rgba(138, 34, 24, 0.08);
+        }
       }
 
       .cell-date {
-        font-size: 1rem;
+        font-size: 0.65rem;
         font-weight: 700;
-        color: #c9a882;
+        color: #3a2816;
         align-self: flex-end;
         font-family: 'Cinzel', serif;
         line-height: 1;
-        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.85);
+        text-shadow: 0 0 2px rgba(200, 180, 140, 0.15);
       }
 
-      &.today .cell-date {
-        color: #e8c877;
-        background: rgba(123, 29, 21, 0.35);
-        border-radius: 50%;
-        width: 28px;
-        height: 28px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        box-shadow:
-          0 0 0 1px rgba(201, 168, 92, 0.7),
-          0 0 10px rgba(155, 44, 32, 0.4);
-        text-shadow: 0 0 6px rgba(232, 200, 119, 0.5);
+      &:hover .cell-date { color: #2a1a0e; }
+
+      &.today {
+        background: rgba(138, 34, 24, 0.12);
+        box-shadow: inset 0 0 0 1.5px rgba(138, 34, 24, 0.3);
+        .cell-date { color: #8a2218; font-weight: 900; font-size: 0.7rem; }
+      }
+
+      .cell-nutrition {
+        .cell-cal {
+          font-family: 'Cinzel', serif;
+          font-size: 0.4rem;
+          font-weight: 700;
+          color: #5a3a18;
+          background: rgba(100, 70, 30, 0.12);
+          padding: 0.02rem 0.15rem;
+          border-radius: 1px;
+          display: inline-block;
+        }
       }
 
       .cell-events {
         display: flex;
         flex-direction: column;
-        gap: 0.2rem;
-
+        gap: 0.05rem;
+        margin-top: auto;
         .compact-event {
-          background: linear-gradient(to right, rgba(123, 29, 21, 0.4), rgba(123, 29, 21, 0.18));
-          border-left: 2px solid #b3352a;
+          background: rgba(100, 30, 20, 0.65);
+          border: 1px solid rgba(120, 40, 25, 0.3);
+          border-left: 2px solid #a02020;
           border-radius: 2px;
-          padding: 0.15rem 0.4rem;
-          font-size: 0.72rem;
+          padding: 0.05rem 0.2rem;
+          font-size: 0.48rem;
           display: flex;
           justify-content: space-between;
           align-items: center;
           font-weight: 600;
-          color: #e8d5b0;
-          font-family: 'Cinzel', serif;
-          text-shadow: 0 1px 1px rgba(0, 0, 0, 0.8);
-          box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
-
-          .compact-title {
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-          }
-
-          .delete-btn {
-            background: transparent;
-            color: transparent;
-            padding: 0;
-            border: none;
-            transition: color 0.2s;
-          }
-
-          &:hover .delete-btn { color: #e8c877; }
+          color: #f0e0c0;
+          font-family: 'IM Fell English', serif;
+          text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
+          .compact-title { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+          .delete-btn { background: transparent; color: transparent; padding: 0; border: none; }
+          &:hover .delete-btn { color: #f0d878; }
         }
       }
     }
   }
 
-  /* Event form — dark iron & leather panel */
+  /* =========================================
+     EVENT FORM
+     ========================================= */
   .event-form {
-    background-color: #241610;
-    background-image:
-      radial-gradient(ellipse 70% 60% at 50% 30%, rgba(140, 92, 46, 0.22) 0%, transparent 75%),
-      linear-gradient(160deg, #322013 0%, #26160c 60%, #1d1008 100%),
-      url("data:image/svg+xml,%3Csvg viewBox='0 0 300 300' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='fnoise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='5' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23fnoise)' opacity='0.14'/%3E%3C/svg%3E");
-    background-size: 100% 100%, 100% 100%, 200px 200px;
-    border: 3px solid #4a3818;
-    border-radius: 6px;
-    padding: 2.5rem 3.5rem;
-    width: 90%;
-    max-width: 460px;
+    background: rgba(20, 14, 8, 0.94);
+    border: 1px solid var(--cal-border);
+    border-radius: 4px;
+    padding: 0.8rem 1.2rem;
+    width: 85%;
+    max-width: 360px;
     display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    box-shadow:
-      0 0 0 1px rgba(201, 168, 92, 0.25),
-      0 0 0 5px #120c06,
-      0 20px 50px rgba(0, 0, 0, 0.92),
-      inset 0 0 24px rgba(0, 0, 0, 0.6);
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.85);
     position: relative;
-    margin-bottom: 1.5rem;
-    z-index: 6;
+    margin: 0.5rem auto 0.75rem;
+    z-index: 9;
 
-    &::after {
+    &::before {
       content: '';
       position: absolute;
-      inset: 6px;
-      border: 1px solid rgba(201, 168, 92, 0.28);
+      inset: 4px;
+      border: 1px solid rgba(212, 176, 88, 0.08);
       pointer-events: none;
-      border-radius: 3px;
-    }
-
-    h3 {
-      text-align: center;
-      color: #e8c877;
-      font-size: 1.3rem;
-      letter-spacing: 2px;
-      padding-bottom: 0.75rem;
-      border-bottom: 1px solid rgba(201, 168, 92, 0.22);
-      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+      border-radius: 2px;
     }
 
     input {
-      flex: 1;
-      padding: 0.65rem 0.9rem;
-      border-radius: 3px;
-      border: 1px solid rgba(201, 168, 92, 0.3);
-      background: rgba(16, 10, 6, 0.65);
-      color: #e8d5b0;
+      flex: 1 1 120px;
+      padding: 0.35rem 0.6rem;
+      border-radius: 2px;
+      border: 1px solid var(--cal-border);
+      background: rgba(20, 14, 8, 0.8);
+      color: #6a5030;
       outline: none;
       font-family: 'Cinzel', serif;
-      font-size: 0.9rem;
+      font-size: 0.65rem;
       font-weight: 600;
-      box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.6);
-
-      &::placeholder { color: #8a7455; }
-
-      &:focus {
-        border-color: rgba(201, 168, 92, 0.65);
-        background: rgba(24, 15, 9, 0.85);
-        box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.6), 0 0 8px rgba(201, 168, 92, 0.25);
-      }
-
-      &::-webkit-calendar-picker-indicator {
-        cursor: pointer;
-        filter: invert(0.8) sepia(0.5) saturate(2);
-      }
+      &::placeholder { color: #8a7040; }
+      &:focus { border-color: var(--cal-gold); box-shadow: 0 0 6px rgba(212, 176, 88, 0.12); }
+      &::-webkit-calendar-picker-indicator { cursor: pointer; filter: invert(0.8) sepia(0.5) saturate(2); }
     }
 
     .submit-event-btn {
-      background: linear-gradient(135deg, #7b1d15, #551009);
-      color: #f4dfa8;
-      padding: 0.6rem 1.5rem;
-      border-radius: 3px;
+      background: linear-gradient(135deg, #8a2218, #601410);
+      color: var(--cal-gold);
+      padding: 0.35rem 1rem;
+      border-radius: 2px;
       font-weight: 700;
-      border: 1px solid #3d0c06;
+      border: 1px solid #a02828;
       text-transform: uppercase;
       font-family: 'Cinzel', serif;
-      font-size: 0.8rem;
-      letter-spacing: 1.5px;
-      box-shadow: inset 0 1px 0 rgba(255,255,255,0.1), 0 3px 8px rgba(0,0,0,0.5);
-
-      &:hover {
-        background: linear-gradient(135deg, #96251b, #6b150c);
-        transform: translateY(-1px);
-      }
+      font-size: 0.6rem;
+      letter-spacing: 1px;
+      &:hover { background: linear-gradient(135deg, #a03020, #701810); }
     }
   }
 
+  /* =========================================
+     EVENT MODAL
+     ========================================= */
   .event-modal-overlay {
     position: fixed;
     inset: 0;
-    background: rgba(4, 2, 1, 0.86);
-    backdrop-filter: blur(3px);
+    background: rgba(4, 2, 1, 0.85);
+    backdrop-filter: blur(4px);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -417,124 +305,71 @@
     animation: fadeIn 0.2s ease;
 
     .event-modal {
-      background-color: #241610;
-      background-image:
-        radial-gradient(ellipse 70% 60% at 50% 30%, rgba(140, 92, 46, 0.22) 0%, transparent 75%),
-        linear-gradient(160deg, #322013 0%, #26160c 60%, #1d1008 100%),
-        url("data:image/svg+xml,%3Csvg viewBox='0 0 300 300' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='mnoise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='5' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23mnoise)' opacity='0.14'/%3E%3C/svg%3E");
-      background-size: 100% 100%, 100% 100%, 200px 200px;
-      width: 90%;
-      max-width: 460px;
-      padding: 3rem 4.5rem;
-      border-radius: 6px;
-      border: 3px solid #4a3818;
-      box-shadow:
-        0 0 0 1px rgba(201, 168, 92, 0.25),
-        0 0 0 5px #120c06,
-        0 20px 50px rgba(0, 0, 0, 0.92),
-        inset 0 0 24px rgba(0, 0, 0, 0.6);
+      background: rgba(20, 14, 8, 0.95);
+      width: 85%;
+      max-width: 340px;
+      padding: 1.25rem 1.75rem;
+      border-radius: 4px;
+      border: 1px solid var(--cal-border);
+      box-shadow: 0 0 0 4px rgba(20, 14, 8, 0.95), 0 16px 40px rgba(0, 0, 0, 0.9);
       position: relative;
       display: flex;
       flex-direction: column;
       align-items: center;
       text-align: center;
-
-      &::after {
-        content: '';
-        position: absolute;
-        inset: 8px;
-        border: 1px solid rgba(201, 168, 92, 0.28);
-        pointer-events: none;
-        border-radius: 3px;
-      }
+      animation: scaleIn 0.2s ease-out;
 
       h3 {
-        color: #e8c877;
-        margin-bottom: 1.5rem;
-        font-size: 1.4rem;
-        text-align: center;
-        border-bottom: 1px solid rgba(201, 168, 92, 0.22);
-        padding-bottom: 0.75rem;
-        letter-spacing: 3px;
+        color: var(--cal-gold);
+        margin-bottom: 0.75rem;
+        font-size: 0.9rem;
+        border-bottom: 1px solid rgba(212, 176, 88, 0.1);
+        padding-bottom: 0.4rem;
+        letter-spacing: 2px;
         width: 100%;
-        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+        text-shadow: 0 0 8px rgba(212, 176, 88, 0.2);
       }
 
       .event-detail-row {
-        margin-bottom: 1.1rem;
+        margin-bottom: 0.5rem;
         display: flex;
         flex-direction: column;
         align-items: center;
-        text-align: center;
         width: 100%;
-
-        strong {
-          color: #b98d4a;
-          font-size: 0.8rem;
-          margin-bottom: 0.25rem;
-          text-transform: uppercase;
-          font-family: 'Cinzel', serif;
-          letter-spacing: 2px;
-          text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
-        }
-
-        p, span {
-          color: #e8d5b0;
-          font-size: 1.15rem;
-          font-weight: 700;
-          line-height: 1.4;
-          word-break: break-word;
-          text-shadow: 0 1px 2px rgba(0, 0, 0, 0.7);
-        }
+        strong { color: var(--cal-gold-dim); font-size: 0.6rem; text-transform: uppercase; font-family: 'Cinzel', serif; letter-spacing: 1.5px; margin-bottom: 0.1rem; }
+        p, span { color: #6a5030; font-size: 0.85rem; font-weight: 700; font-family: 'IM Fell English', serif; }
       }
 
       .modal-actions {
         display: flex;
         justify-content: center;
-        gap: 1rem;
-        margin-top: 1.75rem;
+        gap: 0.5rem;
+        margin-top: 0.75rem;
         width: 100%;
-
         .close-btn {
           background: transparent;
-          border: 1px solid rgba(201, 168, 92, 0.35);
-          color: #c9a85c;
-          padding: 0.5rem 1.25rem;
-          border-radius: 3px;
+          border: 1px solid rgba(212, 176, 88, 0.2);
+          color: var(--cal-gold);
+          padding: 0.3rem 0.75rem;
+          border-radius: 2px;
           font-family: 'Cinzel', serif;
-          font-size: 0.8rem;
-          letter-spacing: 1px;
-
-          &:hover {
-            background: rgba(201, 168, 92, 0.12);
-            border-color: rgba(201, 168, 92, 0.55);
-          }
+          font-size: 0.6rem;
+          &:hover { background: rgba(212, 176, 88, 0.06); }
         }
-
         .delete-btn {
-          background: rgba(123, 29, 21, 0.2);
-          border: 1px solid #b3352a;
+          background: rgba(160, 32, 32, 0.2);
+          border: 1px solid #a02020;
           color: #e0857a;
-          padding: 0.5rem 1rem;
-          border-radius: 3px;
+          padding: 0.3rem 0.7rem;
+          border-radius: 2px;
           display: flex;
           align-items: center;
-          gap: 0.5rem;
+          gap: 0.3rem;
           font-family: 'Cinzel', serif;
-          font-size: 0.8rem;
-
-          &:hover {
-            background: #7b1d15;
-            color: #f4dfa8;
-          }
+          font-size: 0.6rem;
+          &:hover { background: #8a2218; color: var(--cal-gold); }
         }
       }
     }
   }
 }
-
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to   { opacity: 1; }
-}
-
